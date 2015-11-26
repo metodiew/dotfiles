@@ -1,0 +1,46 @@
+#!bin/sh
+
+# Colors
+color_red='\033[0;31m'
+no_color='\033[0m' # No Color
+ 
+if git diff --cached | grep "debugger"
+then
+   echo -e "${color_red}debugger statement found in the diff${no_color}"
+fi
+
+if git diff --cached | grep "var_dump"
+then
+   echo -e "${color_red}var_dump found in the commit${no_color}"
+fi
+
+if git diff --cached | grep "console.log"
+then
+   echo -e "${color_red}console.log found in the commit${no_color}"
+fi
+
+commit_oneline=`git diff --cached | grep "^+" | grep -v "+++"`
+
+oparbr=`echo $commit_oneline | grep -o "(" | wc -l`
+cparbr=`echo $commit_oneline | grep -o ")" | wc -l`
+ocurbr=`echo $commit_oneline | grep -o "{" | wc -l`
+ccurbr=`echo $commit_oneline | grep -o "}" | wc -l`
+osqbr=`echo $commit_oneline | grep -o "\[" | wc -l`
+csqbr=`echo $commit_oneline | grep -o "\]" | wc -l`
+
+if (( $oparbr != $cparbr ))
+then
+   echo -e "\e[1;34mopen parenthesis brackets don't match closing parenthesis\e[0m"
+fi
+
+if (( $ocurbr != $ccurbr ))
+then
+   echo -e "\e[1;34mopen curly brackets don't match closing curly\e[0m"
+fi
+
+if (( $osqbr != $csqbr ))
+then
+   echo -e "\e[1;34mopen square brackets don't match closing square\e[0m"
+fi
+
+exit

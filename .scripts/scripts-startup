@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# add this in Preferences => Startup Applications
+sleep 10 && source /home/metodiew/.bash_profile
