@@ -17,3 +17,7 @@
 
 [color "branch"]
 	remote = yellow
+[push]
+	default = current
+[pull]
+	default = current
