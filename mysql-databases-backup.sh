@@ -11,6 +11,6 @@ databases=`mysql -u $USER -p$PASSWORD -e "SHOW DATABASES;" | tr -d "| " | grep -
 for db in $databases; do
     if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
         echo "Dumping database: $db"
-        mysqldump -u $USER  --databases $db > `date +%Y%m%d`.$db.sql
+        mysqldump -u $USER  --databases $db > $db-`date +%Y%m%d`.sql
     fi
 done
