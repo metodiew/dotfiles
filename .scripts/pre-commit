@@ -1,5 +1,7 @@
 #!bin/sh
 
+# Props to Mario Peshev for this one
+
 # Colors
 color_red='\033[0;31m'
 no_color='\033[0m' # No Color
