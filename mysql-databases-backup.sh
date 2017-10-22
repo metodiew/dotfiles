@@ -6,8 +6,7 @@
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
 # Date : 2017.10.22
-#
-# Description: This is a script for a backup of all important files of my computer. A note, the script is designed to work with my Linux machine. However, most of the important files. Feel free to re-use and adjust the script for your own use :)
+# Description: This is a script for backup of all Apache MySQL database from my localhost.
 
 # Get the today's date
 NOW="`date +%Y%m%d`";
