@@ -69,14 +69,15 @@ sudo zip -r "$BACKUPFOLDERROOT/Config Files/ssh folder/$NOW.zip" /home/metodiew/
 echo 'Config directories backup is ready.';
 sleep 1;
 
-# Archive and Backup Skype directories
-
-# Archive and Backup WWW Backup directory
-./www-apache-directories-backup.sh; # Run the script
-
 # We need to start the Apache server, just in case.
 sudo service apache2 start;
 ./mysql-databases-backup.sh; # Run the MySQL script
 
 # We need to stop Apache server after the script. Just in case.
 sudo service apache2 stop;
+
+# Archive and Backup WWW Backup directory
+./www-apache-directories-backup.sh; # Run the script
+
+# Archive and Backup Skype directories
+# @TODO
