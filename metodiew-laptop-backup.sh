@@ -25,6 +25,12 @@ fi
 echo 'Starting with backup important files ...';
 sleep 2;
 
+# Desktop screenshot
+echo "Taking a Desktop Screenshot"
+./desktop-screenshot.sh;
+echo 'Desktop Screenshot is ready.';
+sleep 2;
+
 # Backup dotfiles
 echo 'Starting with dotfiles ...';
 sleep 2;
