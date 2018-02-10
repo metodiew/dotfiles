@@ -5,14 +5,14 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Date : 2018.01.20
+# Date : 2018.02.10
 # Description: This is a script for taking a screenshot of my Desktop and move it to the backup files
+
+# Set the Backup directory
+BACKUPFOLDERROOT='/media/metodiew/metodiew HDD/Backup Files';
 
 # Get the today's date
 NOW="`date +%Y%m%d`";
-
-# Set the Backup directory
-BACKUPFOLDERROOT='/mnt/5DB56B841BB28CF1/Backup Files';
 
 # Take the screenshot
 import -window root desktop-screenshot-$NOW.png

@@ -5,8 +5,11 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Date : 2017.10.22
+# Date : 2018.02.10
 # Description: This is a script for backup of all Apache MySQL database from my localhost.
+
+# Set the Backup directory
+BACKUPFOLDERROOT='/media/metodiew/metodiew HDD/Backup Files';
 
 # Get the today's date
 NOW="`date +%Y%m%d`";
@@ -34,5 +37,5 @@ done
 
 # Archive the new created folder with all dumped databases. Then create an archive and delete the folder.
 zip -r $NOW.zip $NOW;
-mv $NOW.zip '/mnt/5DB56B841BB28CF1/Backup Files/WWW Backup/Apache/SQLs';
+mv $NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/SQLs";
 rm -r $NOW;

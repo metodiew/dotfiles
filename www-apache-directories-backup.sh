@@ -5,13 +5,16 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Date : 2017.10.22
+# Date : 2018.02.10
 # Description: Prepare an archive file for each html Apache directory.
+
+# Set the Backup directory
+BACKUPFOLDERROOT='/media/metodiew/metodiew HDD/Backup Files';
 
 # Get the today's date
 NOW="`date +%Y%m%d`";
 
-mkdir '/mnt/5DB56B841BB28CF1/Backup Files/WWW Backup/Apache/www-directory-backup/'$NOW;
+mkdir "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/$NOW";
 cd /var/www/html;
 for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
 	do
@@ -23,9 +26,9 @@ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
 		# Move the created archive to a specific directory
 		# Most likely in your case this will be different
 		echo 'Moving' ${dir//.\/}'-'$NOW'.zip archive ...';
-		mv ${dir}-$NOW.zip '/mnt/5DB56B841BB28CF1/Backup Files/WWW Backup/Apache/www-directory-backup/'$NOW;
+		mv ${dir}-$NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/$NOW";
 
 		echo 'Ready with' ${dir//.\/}'-'$NOW'.zip archive ...';
 		sleep 5;
 done
-cd '/mnt/5DB56B841BB28CF1/Backup Files/';
+cd "$BACKUPFOLDERROOT";
