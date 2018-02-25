@@ -6,12 +6,20 @@ alias modprobeadd="sudo modprobe rtl8723be"
 # an easy way to open D partition
 export hdd=/mnt/5DB56B841BB28CF1
 
+# Some Helpful alias
+alias cachecleanup="sync && echo 3 | sudo tee /proc/sys/vm/drop_caches"
+alias suspendusb="echo USB0 > /proc/acpi/wakeup && echo USB2 > /proc/acpi/wakeup"
+alias whatsmyip="curl http://icanhazip.com/" # check for my IP
+
 # an easy way to use sass --watch
-alias sasswatch="sass --watch sass/master.scss:css/master.css --style compressed"
-alias sasswatchnorm="sass --watch sass/master.scss:css/master.css"
+alias sasswatch="sass --watch assets/sass/master.scss:assets/css/master.min.css --style compressed"
+alias sasswatchnorm="sass --watch /assets/sass/master.scss:/assets/css/master.css"
 
 ### WP-Cli Tab completions ###
 source /home/metodiew/.scripts/wp-completion.bash
+
+# Pantheon Stuff
+alias terminus=/var/www/html/venture-inclusion-network/wp-content/themes/ventureinclusion/vendor/bin/terminus
 
 ### Git Stuff ###
 
@@ -48,9 +56,13 @@ alias gchs="git checkout staging"
 alias gchm="git checkout master"
 alias gadd="git add"
 alias gommit="sh ~/.scripts/pre-commit && git commit -m"
+alias gitbranchcleanup="git branch --merged | egrep -v "(^\*|master|dev)" | xargs git branch -d" # Clean all merged branches
 
-# Grunt install/setuo
+# Grunt Install/Setup Command
 alias dxgruntinstall="npm install grunt-contrib-sass grunt-contrib-watch grunt-contrib-jshint grunt-autoprefixer"
+
+# Gulp Install/Setup Command
+alias dxgulpinstall="npm install gulp-sass gulp-autoprefixer gulp-livereload gulp-notify gulp-uglify gulp-concat gulp-cssmin gulp-imagemin"
 
 # Android SDK
 export PATH=${PATH}:/mnt/5DB56B841BB28CF1/Downloads/Android/android-sdk-linux/tools
