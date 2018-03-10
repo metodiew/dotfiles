@@ -26,7 +26,9 @@ echo 'Starting with backup important files ...';
 sleep 2;
 
 # Desktop screenshot
-echo "Taking a Desktop Screenshot"
+echo "Taking a Desktop Screenshot."
+echo "Show your Desktop."
+sleep 3;
 ./desktop-screenshot.sh;
 echo 'Desktop Screenshot is ready.';
 sleep 2;
