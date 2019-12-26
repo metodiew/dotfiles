@@ -5,7 +5,7 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Date : 2018.02.10
+# Date : 2017.10.20
 # Description: This is a script for a backup of all important files of my computer. A note, the script is designed to work with my Linux machine. However, most of the important files. Feel free to re-use and adjust the script for your own use :)
 
 # Get the today's date
@@ -13,6 +13,7 @@ NOW="`date +%Y%m%d`";
 
 # Set the Backup directory
 BACKUPFOLDERROOT='/media/metodiew/metodiew HDD/Backup Files';
+
 
 # Ask to run the script with sudo
 if [[ $UID != 0 ]]; then
@@ -26,9 +27,7 @@ echo 'Starting with backup important files ...';
 sleep 2;
 
 # Desktop screenshot
-echo "Taking a Desktop Screenshot."
-echo "Show your Desktop."
-sleep 3;
+echo "Taking a Desktop Screenshot"
 ./desktop-screenshot.sh;
 echo 'Desktop Screenshot is ready.';
 sleep 2;
@@ -48,6 +47,8 @@ cp /home/metodiew/.vimrc "$BACKUPFOLDERROOT/Config Files/";
 
 cp -r /home/metodiew/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.vim "$BACKUPFOLDERROOT/Config Files/";
+
+cp -r /home/metodiew/.config/filezilla/sitemanager.xml "$BACKUPFOLDERROOT/FileZilla/"
 
 echo 'dotfiles backup is ready.';
 sleep 2;

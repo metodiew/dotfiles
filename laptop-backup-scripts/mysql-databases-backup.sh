@@ -5,8 +5,8 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Date : 2018.02.10
-# Description: This is a script for backup of all Apache MySQL database from my localhost.
+# Lst Updated : 2019.12.26
+# Description: This is a script for backup of all Apache MySQL database from my localhost machine.
 
 # Set the Backup directory
 BACKUPFOLDERROOT='/media/metodiew/metodiew HDD/Backup Files';
