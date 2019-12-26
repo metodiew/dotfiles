@@ -1,0 +1,32 @@
+/* Gmail */
+a.gb_ie.gb_mc.gb_ge img {
+  display: none;
+}
+
+a.gb_ie.gb_mc.gb_ge {
+  width: 100px;
+  height: 60px;
+  background: url(https://devrix.com/wp-content/themes/devrix-v2/assets/images/logo-white.svg) center center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 0 6px !important;
+}
+
+/* Asana */
+.loading_screen_logo_wrapper img {
+  display: none;
+}
+
+.loading_screen_logo_wrapper {
+  background: url('https://devrix.com/wp-content/themes/devrix-v2/assets/images/logo.svg') no-repeat;
+  background-position: center center;
+  background-size: contain;
+  height: 90px;
+  margin-bottom: 40px;
+}
+
+.SidebarHeader-asanaLogo {
+  background-image: url(https://devrix.com/wp-content/themes/devrix-v2/assets/images/logo-white.svg) !important;
+  background-size: 98px 30px !important;
+  height: 30px !important;
+}
