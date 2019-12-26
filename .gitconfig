@@ -21,3 +21,7 @@
 	default = current
 [pull]
 	default = current
+[log]
+	date = rfc
+[commit]
+	template = /home/metodiew/.git-commit-template.txt
