@@ -1,0 +1,15 @@
+# Component/Section/Template/Feature: What change/fix I've made.
+
+# A short description of the change in a few words. Based on all articles I've read, we should not use more than 72 characters.
+
+# Asana Task URL here.
+
+
+
+# Git commit template below.
+#
+# Git update: update the README.md file with the recent changes.
+#
+# We have to update the Git structure and update the setup details with the new files.
+#
+# Asana task: <asana-task-url-here>
