@@ -10,6 +10,9 @@
 # Get the variables from the separate file
 . ./metodiew-laptop-backup-variables.sh;
 
+echo "We are starting with the Apache Folder backup script";
+sleep 2;
+
 mkdir "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/"$NOW;
 cd $APACHEFOLDER;
 for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
@@ -29,3 +32,6 @@ done
 
 # It's important to return to the backup folder, so we can continue with the rest of the backup
 cd "$BACKUPFOLDERROOT/";
+
+echo "We are ready with the Apache Folder backup script";
+sleep 2;

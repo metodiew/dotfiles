@@ -14,6 +14,9 @@
 #### Let's start with the MySQL backup ####
 ###########################################
 
+echo "We are starting with the MySQL backup script";
+sleep 2;
+
 # We need to start the Apache server, just in case.
 sudo service apache2 start;
 
@@ -37,3 +40,6 @@ rm -r $NOW;
 
 # We need to stop Apache server after the script. Just in case.
 sudo service apache2 stop;
+
+echo "The MySQL backup script is ready";
+sleep 2;
