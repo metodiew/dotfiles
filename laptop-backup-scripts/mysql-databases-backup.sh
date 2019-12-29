@@ -35,6 +35,10 @@ done
 
 # Archive the new created folder with all dumped databases. Then create an archive and delete the folder.
 zip -r $NOW.zip $NOW;
+
+# Fix the permissions
+sudo chown metodiew:metodiew $NOW.zip
+
 mv $NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/SQLs";
 rm -r $NOW;
 

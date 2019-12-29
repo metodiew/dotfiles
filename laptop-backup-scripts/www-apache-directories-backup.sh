@@ -22,6 +22,9 @@ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
 		sleep 2;
 		zip -r ${dir}-$NOW.zip ${dir};
 
+		# Fix the permissions
+		sudo chown metodiew:metodiew ${dir}-$NOW.zip
+
 		# Move the created archive to a specific directory
 		echo 'Moving' ${dir//.\/}'-'$NOW'.zip archive ...';
 		mv ${dir}-$NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/"$NOW;

@@ -39,7 +39,7 @@ cp -r /home/metodiew/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.vim "$BACKUPFOLDERROOT/Config Files/";
 
 # SSH/FileZilla backup
-sudo zip -r "$BACKUPFOLDERROOT/Config Files/ssh folder/$NOW.zip" /home/metodiew/.ssh;
+zip -r "$BACKUPFOLDERROOT/Config Files/ssh folder/$NOW.zip" /home/metodiew/.ssh;
 cp -r /home/metodiew/.config/filezilla/sitemanager.xml "$BACKUPFOLDERROOT/FileZilla/"
 
 echo 'dotfiles backup is ready.';

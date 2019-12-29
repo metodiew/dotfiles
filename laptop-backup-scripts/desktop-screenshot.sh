@@ -16,6 +16,9 @@ sleep 2;
 # Take the screenshot
 import -window root desktop-screenshot-$NOW.png
 
+# Fix the permissions
+sudo chown metodiew:metodiew desktop-screenshot-$NOW.png
+
 # Move the screenshot to Desktop Screenshots directory
 mv desktop-screenshot-$NOW.png  "$BACKUPFOLDERROOT/Desktop Screenshots/";
 
