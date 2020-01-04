@@ -70,3 +70,4 @@ sleep 1;
 ./www-apache-directories-backup.sh;
 
 # That's it :)
+echo "That's all folks, we are ready :)";
