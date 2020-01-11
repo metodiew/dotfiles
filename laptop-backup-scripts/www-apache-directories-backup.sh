@@ -4,7 +4,7 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2019.12.26
+# Last Updated: 2020.01.11
 # Description: Prepare an archive file for each html Apache directory.
 
 # Get the variables from the separate file
@@ -28,6 +28,9 @@ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
 		# Move the created archive to a specific directory
 		echo 'Moving' ${dir//.\/}'-'$NOW'.zip archive ...';
 		mv ${dir}-$NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/"$NOW;
+
+		# Fix the permissions
+		sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/"$NOW
 
 		echo 'Ready with' ${dir//.\/}'-'$NOW'.zip archive ...';
 		sleep 2;

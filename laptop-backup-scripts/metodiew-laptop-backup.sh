@@ -27,7 +27,6 @@ sleep 2;
 echo 'Starting with dotfiles ...';
 sleep 2;
 
-cp /home/metodiew/.bash_history "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.bash_logout "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.bash_profile "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.bashrc "$BACKUPFOLDERROOT/Config Files/";
@@ -55,8 +54,14 @@ cp /etc/hosts "$BACKUPFOLDERROOT/Config Files/Hosts/hosts.$NOW";
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-$NOW.zip" /etc/apache2;
 
+# Fix the permissions
+sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-$NOW.zip"
+
 # Archive and Backup Config directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Config Folder/autostart-$NOW.zip" /home/metodiew/.config/autostart;
+
+# Fix the permissions
+sudo chown metodiew:metodiew -R "$BACKUPFOLDERROOT/Config Files/"
 
 # Archive and Backup System Connection directory
 
