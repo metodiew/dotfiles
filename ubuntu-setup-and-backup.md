@@ -63,6 +63,7 @@ with list of todo tasks and useful URLs to make my life easier when it comes to 
 * RescueTime
 * Grammarly - do not forget to login, otherwise the stats will be lost :)
 * [ack](https://metodiew.com/install-ack-on-ubuntu/)
+* [DevriX Asana Chrome Extension](https://bitbucket.org/devrix/dx-chrome-asana-task-template/src/master/)
 
 
 ### Development
