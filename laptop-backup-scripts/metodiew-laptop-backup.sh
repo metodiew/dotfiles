@@ -36,6 +36,10 @@ cp /home/metodiew/.profile "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.vimrc "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.vim "$BACKUPFOLDERROOT/Config Files/";
+cp -r /home/metodiew/.vscode "$BACKUPFOLDERROOT/Config Files/";
+
+# Backup some configuration files and preferences
+dconf dump /apps/guake/ > "$BACKUPFOLDERROOT/Config Files/guake-preferences";
 
 # SSH/FileZilla backup
 zip -r "$BACKUPFOLDERROOT/Config Files/ssh folder/$NOW.zip" /home/metodiew/.ssh;
