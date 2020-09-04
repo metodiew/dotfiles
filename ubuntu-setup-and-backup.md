@@ -73,6 +73,11 @@ All needed dev tools, programs and helpful gadgets
 * Git
   * `sudo npm install --global git-open`
 * SVN
+* NPM install
+```
+sudo apt install npm
+sudo apt install nodejs
+```
 * Vagrant
 * VVV
 * [WP-CLI](http://wp-cli.org/#installing)
