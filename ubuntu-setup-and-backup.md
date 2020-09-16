@@ -52,18 +52,22 @@ with list of todo tasks and useful URLs to make my life easier when it comes to 
 
 * Slack
 * Skype
-* [Skype 2](http://blog.metodiew.com/vtora-skype-instantsiya-secondary-skype-pod-ubuntu-12-04/)
 * Viber
 * Zoom
 * XChat
+* ~~[Skype 2](http://blog.metodiew.com/vtora-skype-instantsiya-secondary-skype-pod-ubuntu-12-04/)~~
 
 
 ### Productivity
-* Hamster
+* Toggl
+* Todost app
 * RescueTime
 * Grammarly - do not forget to login, otherwise the stats will be lost :)
 * [ack](https://metodiew.com/install-ack-on-ubuntu/)
 * [DevriX Asana Chrome Extension](https://bitbucket.org/devrix/dx-chrome-asana-task-template/src/master/)
+* Albert for Ubuntu, see [this article](Albert https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
+** don't forget the config files - `.config/albert/albert.conf`
+* ~~Hamster~~
 
 
 ### Development
@@ -111,6 +115,7 @@ Some general tools which is hard to be categorized
 * LibreOffice
 * Gnome Tweaks
   * `sudo apt-get install gnome-tweaks`
+* [Peek](https://github.com/phw/peek)
 
 
   
