@@ -4,7 +4,7 @@
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2019.12.26
+# Last Updated: 2020.11.14
 # Description: This is a script for a backup of all important files of my computer. A note, the script is designed to work with my Linux machine. However, most of the important files. Feel free to re-use and adjust the script for your own use :)
 
 # Ask to run the script with sudo
@@ -31,6 +31,7 @@ cp /home/metodiew/.bash_logout "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.bash_profile "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.bashrc "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.dmrc "$BACKUPFOLDERROOT/Config Files/";
+cp /home/metodiew/.git-commit-template.txt "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.gitconfig "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.profile "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.vimrc "$BACKUPFOLDERROOT/Config Files/";
