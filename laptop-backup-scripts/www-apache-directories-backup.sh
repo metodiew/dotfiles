@@ -20,7 +20,7 @@ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
 		# Create the archive
 		echo 'Starting with' ${dir//.\/}'-'$NOW'.zip archive ...';
 		sleep 2;
-		zip -r ${dir}-$NOW.zip ${dir} -x "**/.git/*" -x "**/node_modules/*" -x "**/.svn/*";
+		zip -r ${dir}-$NOW.zip ${dir} -x "**/node_modules/*"s;
 
 		# Fix the permissions
 		sudo chown metodiew:metodiew ${dir}-$NOW.zip
