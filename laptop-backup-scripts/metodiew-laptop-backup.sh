@@ -58,6 +58,8 @@ cp /etc/hosts "$BACKUPFOLDERROOT/Config Files/Hosts/hosts.$NOW";
 
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-$NOW.zip" /etc/apache2;
+sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-enabled-$NOW.zip" /etc/apache2/sites-enabled;
+sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-available-$NOW.zip" /etc/apache2/sites-available;
 
 # Fix the permissions
 sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-$NOW.zip"
