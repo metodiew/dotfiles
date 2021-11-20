@@ -39,7 +39,7 @@ git config core.fileMode false
 
 ### Git Commands ###
 alias gullos="git pull origin staging"
-alias gullom="git pull origin master"
+alias gullom="git pull origin master; git pull origin main"
 alias gullod="git pull origin develop"
 alias gushos="git push origin staging"
 alias gushom="git push origin master"
@@ -49,7 +49,7 @@ alias gista="gibra && git status"
 alias gchs="git checkout staging"
 alias gcd="git checkout develop && gullod"
 alias gcs="git checkout staging && gushos"
-alias gcm="git checkout master && gullom"
+alias gcm="git checkout master; git checkout main && gullom"
 alias gadd="git add"
 alias gommit="sh ~/.scripts/pre-commit && git commit -m"
 alias commit="sh ~/.scripts/pre-commit && git commit"
