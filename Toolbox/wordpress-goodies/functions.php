@@ -13,8 +13,8 @@
  */
 function dx_browser_os_body_class( $classes ) {
     global $is_lynx, $is_gecko, $is_IE, $is_opera, $is_NS4, $is_safari, $is_chrome, $is_iphone;
-    
-    if ( $is_lynx ) { 
+
+    if ( $is_lynx ) {
         $classes[] = 'lynx';
     } elseif ( $is_gecko ) {
         $classes[] = 'gecko';
@@ -34,11 +34,11 @@ function dx_browser_os_body_class( $classes ) {
     } else {
         $classes[] = 'unknown';
     }
-    
+
     if( $is_iphone ) {
     	$classes[] = 'iphone';
 	}
-	
+
 	if ( stristr( $_SERVER['HTTP_USER_AGENT'], 'mac' ) ) {
 		$classes[] = 'osx';
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], 'linux' ) ) {
@@ -46,7 +46,7 @@ function dx_browser_os_body_class( $classes ) {
 	} elseif ( stristr( $_SERVER['HTTP_USER_AGENT'], 'windows' ) ) {
     	$classes[] = 'windows';
 	}
-    
+
 	return $classes;
 }
 
@@ -61,7 +61,7 @@ function catch_the_first_image( $post_id = null ) {
 	if ( empty( $post_id ) ) {
 		return;
 	}
-	
+
 	$post = get_post( $post_id );
 	$first_img = '';
 	$output = preg_match_all( '/<img.+src=[\'"]([^\'"]+)[\'"].*>/i', $post->post_content, $matches );
@@ -77,13 +77,13 @@ function dx_get_featured_image_url( $post_id ) {
 	if ( empty( $post_id ) ) {
 		return;
 	}
-	
+
 	$image_args = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), '' );
-	
+
 	$image = '';
 	if ( ! empty( $image_args ) && is_array( $image_args ) ) {
 		$image = $image_args[0];
 	}
-	
+
 	return $image;
 }
