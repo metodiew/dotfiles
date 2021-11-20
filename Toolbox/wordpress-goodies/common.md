@@ -1,5 +1,13 @@
 # Common snippets and scripts
 
+## Resources
+* [Query Monitor](https://wordpress.org/plugins/query-monitor/) - the your must have tool, period.
+* [BE Media from Production](https://wordpress.org/plugins/be-media-from-production/)
+* [wp_mail](https://github.com/johnbillion/wp_mail) by John Blackbourn
+* [Rewrite Rules Inspector](https://wordpress.org/plugins/rewrite-rules-inspector/)
+* [RTL Tester](https://wordpress.org/plugins/rtl-tester/)
+* [Email Log](https://wordpress.org/plugins/email-log/)
+
 
 ## SMTP - using SMTP to go and some email plugin defines.
 Place these in the wp-config.php and update the proper rules
