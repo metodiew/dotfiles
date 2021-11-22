@@ -7,6 +7,7 @@
 * [Rewrite Rules Inspector](https://wordpress.org/plugins/rewrite-rules-inspector/)
 * [RTL Tester](https://wordpress.org/plugins/rtl-tester/)
 * [Email Log](https://wordpress.org/plugins/email-log/)
+* [Cleanup Multisite DB Tables](https://github.com/shawnhooper/delete-orphaned-multisite-tables)
 
 
 ## SMTP - using SMTP to go and some email plugin defines.
