@@ -13,7 +13,7 @@ alias sasswatchnorm="sass --watch /assets/sass/master.scss:/assets/css/master.cs
 source /home/metodiew/.scripts/wp-completion.bash
 
 ## Node commands
-alias npr="npm run production"
+alias npr="npm run build"
 
 ## Git Stuff ###
 
@@ -60,3 +60,6 @@ alias dxgruntinstall="npm install grunt-contrib-sass grunt-contrib-watch grunt-c
 
 ## Gulp Install/Setup Command and chain a few Gulp items
 alias dxgulpinstall="npm install gulp-sass gulp-autoprefixer gulp-livereload gulp-notify gulp-uglify gulp-concat gulp-cssmin gulp-imagemin"
+
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm

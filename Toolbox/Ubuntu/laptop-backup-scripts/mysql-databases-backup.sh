@@ -29,7 +29,7 @@ for db in $databases; do
     if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
         echo "Dumping database: $db"
 	    # Backup each database to the new created folder
-        mysqldump -u $USER -p$PASSWORD $db > $NOW/$NOW.$db.sql
+        mysqldump --skip-lock-tables -u $USER -p$PASSWORD $db > $NOW/$NOW.$db.sql
     fi
 done
 
