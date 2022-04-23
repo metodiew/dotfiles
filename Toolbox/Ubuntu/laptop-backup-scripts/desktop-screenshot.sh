@@ -7,11 +7,13 @@
 # Last Updated: 2019.12.26
 # Description: This is a script for taking a screenshot of my Desktop and move it to the backup files
 
+# Make sure you have this one instaled:
+# sudo apt install graphicsmagick-imagemagick-compat
+
 # Get the variables from the separate file
 . ./metodiew-laptop-backup-variables.sh;
 
-echo "Taking a Desktop Screenshot"
-sleep 2;
+echo "Taking a Desktop sleep";
 
 # Take the screenshot
 import -window root desktop-screenshot-$NOW.png
