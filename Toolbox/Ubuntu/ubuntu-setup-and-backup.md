@@ -1,26 +1,146 @@
 # Ubuntu Setup and Backup
+This is a personal step-by-step for installing a new machine or just refrehsing my Ubuntu setup. If you feel it useful or have any feedback, please drop a line :)
 
-Shit happens, you know? And when it happened we need to be prepared. That's why I'm using this document 
-with list of todo tasks and useful URLs to make my life easier when it comes to format and re-install of my Ubuntu.
+For some context, I'm usuing the [laptop-backup-scripts](https://github.com/metodiew/dotfiles/tree/master/Toolbox/Ubuntu/laptop-backup-scripts) set of scripts here where I backup my laptop on a weekly basic and I can easily restore the setup just like it was before.
 
-## Local Directories
-* Backups/Backup Files
-* Books
-* Documents
-* Downloads
+Once we have the new system/laptop in place, we are going to follow the steps below.
+
+## Install Software, Programs, Tools
+We have to start with some of the tools and software we'll be using
+
+* Enable SSH `sudo apt install openssh-server -y`
+* Git `sudo apt-get install git`
+* Install **Dropbox**
+  * Check the Selective Sync settings
+  * We'll need this one to start syncing files and folders as we'll need them below
+
+### Dotfiles
+Clone the dotfies folder
+```
+cd ~/Software
+git clone git@github.com:metodiew/dotfiles.git
+```
+
+Apply the dotfiles to my machine
+Go to the ~ folder and delete the existing files
+```
+cd ~/
+rm .bash_logout .bash_profile .bashrc .profile
+```
+
+Let's link the proper files
+```
+cp ~/Software/dotfiles/.bash_logout .
+cp ~/Software/dotfiles/.bash_profile .
+cp ~/Software/dotfiles/.bashrc .
+cp ~/Software/dotfiles/.gitconfig .
+cp ~/Software/dotfiles/.profile .
+cp ~/Software/dotfiles/.vimrc .
+cp -r ~/Software/dotfiles/.scripts .
+```
+
+### Browsers
+* Chrome
+* Opera, *not required*
+* Vivaldi, *not required*
+
+----
+
+## Dropbox Folders Sync and Structure
+Adjust the folders and directories
+
+```
+cd ~/
+rm -r Documents Music Pictures Videos
+mv Downloads Downloads-No-Dropbox
+ln -s ~/Dropbox/Documents/ .
+ln -s ~/Dropbox/Downloads/ .
+ln -s ~/Dropbox/Music/ .
+ln -s ~/Dropbox/Pictures/ .
+ln -s ~/Dropbox/Videos/ .
+
+```
+
+### Productivity
+* Toggl
+* Todost app
+* RescueTime
+* Grammarly - do not forget to login, otherwise the stats will be lost :)
+* [ack](https://metodiew.com/install-ack-on-ubuntu/)
+* [DevriX Asana Chrome Extension](https://github.com/DevriX/dx-chrome-asana-task-template)
+* [Albert](https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
+  * Restore the config file - `.config/albert/albert.conf`
+* ~~Hamster~~
+
+### Communication
+* Slack
+* Viber
+* Zoom
+* Skype, *not required*
+* ~~[Skype 2](http://blog.metodiew.com/vtora-skype-instantsiya-secondary-skype-pod-ubuntu-12-04/)~~
+
+### Development
+All needed dev tools, programs and helpful gadgets
+
+* Install [Visual Studio Code](https://linuxiac.com/install-visual-studio-code-on-ubuntu-22-04/)
+* NPM install
+  ```
+  sudo apt install npm
+  sudo apt install nodejs
+  ```
+* LAMP stack
+  * [Ubuntu LAMP Stack](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-22-04) or a newer version
+  * Fix the [MySQL Pssword](https://stackoverflow.com/questions/50691977/how-to-reset-the-root-password-in-mysql-8-0-11) or an alternative version
+  * Install [phpMyAdmin](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-22-04) or an alternative version
+* [WP-CLI](http://wp-cli.org/#installing)
+* Gulp: `npm install gulp -g`
+* Node
+  * run this in order to make sure node is working properly `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+* Xdebug
+* Sass/Compass
+  * We need to install Ruby first: `sudo apt-get install ruby-full`
+  * Then: `sudo gem install sass --no-user-install`
+* [Git Open] - `npm install --global git-open`
+* [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script)
+* ~~SVN~~
+* ~~Vagrant~~
+* ~~VVV~~
+* ~~Grunt `npm install -g grunt-cli`~~
+
+
+### Tools
+Some general tools which is hard to be categorized
+
+* Guake  
+  * Restore the Guake Preference with:  
+  `guake --restore-preferences ~/Dropbox/Backup\ Files/Config\ Files/guake-preferences`
+* Vim
+* Torguard
+* [CopyQ clipboard](https://github.com/hluk/CopyQ)
 * Dropbox
-* GitHub
-* Install
-* Music
-* Pictures
-* Random Stuff
-* SVN
-* Videos
-* Web and Dev
-* Work
+* FileZilla
+* Poedit
+* Gnome Tweaks Tools
+* [Peek](https://github.com/phw/peek)
+* ~~Virtual Box~~
+* ~~Gimp~~
+* ~~pCloud~~
+
+## Misc and General Items
+* [Calendar - first day Monday](https://askubuntu.com/questions/197613/monday-as-first-day-in-gnome-shell-instead-of-sunday)
+  
+
+### Fun and Freen time
+Music, Videos, Gaming and the like
+* Spotify
+* VLC
+* ~~Steam~~
+  * ~~CSGO~~
+* ~~Rhythmbox~~
+
 
 ## OS Install
-* Apache Settings
+* Apache Settings and all the sites-enabled and sites-available items
 * /etc/hosts file
 * /etc/NetworkManager/system-connections
 * .ssh
@@ -33,104 +153,7 @@ with list of todo tasks and useful URLs to make my life easier when it comes to 
   * .profile
   * .vimrc
 
-## Localhost
-* /var/www/html/ directory
-* SQL databases
-* Vagrant www folders
-* Vagrant SQL databases
-
-## Software, Programs, Tools to be installed
-
-### Browsers
-* Chrome
-* [Firefox Developer](http://askubuntu.com/a/548005)
-* Opera
-* Vivaldi
-
-
-### Communication
-
-* Slack
-* Skype
-* Viber
-* Zoom
-* XChat
-* ~~[Skype 2](http://blog.metodiew.com/vtora-skype-instantsiya-secondary-skype-pod-ubuntu-12-04/)~~
-
-
-### Productivity
-* Toggl
-* Todost app
-* RescueTime
-* Grammarly - do not forget to login, otherwise the stats will be lost :)
-* [ack](https://metodiew.com/install-ack-on-ubuntu/)
-* [DevriX Asana Chrome Extension](https://bitbucket.org/devrix/dx-chrome-asana-task-template/src/master/)
-* Albert for Ubuntu, see [this article](Albert https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
-** don't forget the config files - `.config/albert/albert.conf`
-* ~~Hamster~~
-
-
-### Development
-All needed dev tools, programs and helpful gadgets
-
-* LAMP stack
-* Git
-  * `sudo npm install --global git-open`
-* SVN
-* NPM install
-```
-sudo apt install npm
-sudo apt install nodejs
-```
-* Vagrant
-* VVV
-* [WP-CLI](http://wp-cli.org/#installing)
-* Xdebug
-* Node
-* Sass/Compass
-  * We need to install Ruby first: `sudo apt-get install ruby-full`
-  * Then: `sudo gem install sass --no-user-install`
-* Grunt
-  * `npm install -g grunt-cli`
-  * run this in order to make sure node is working properly `sudo ln -s /usr/bin/nodejs /usr/bin/node`
-* Gulp: `npm install gulp -g`
-* Visual Studio Code
-
-
-### Tools
-Some general tools which is hard to be categorized
-
-* Guake
-* Vim
-* Virtual Box
-* Gimp
-* Gedit, in case there isn't
-* Torguard
-* Dropbox
-* pCloud
-* FileZilla
-* TLP Ubuntu
-* Poedit
-* k3b
-* LibreOffice
-* Gnome Tweaks
-  * `sudo apt-get install gnome-tweaks`
-* [Peek](https://github.com/phw/peek)
-
-
-  
-
-### Fun and Freen time
-Music, Videos, Gaming and the like
-* Spotify
-* VLC
-* Steam
-  * CSGO
-* Rhythmbox
-
-
-
-## Things TODO after install
+## Old things that I probably do not need anymore
 * Vivacom USB - [Huawei E173s and Ubuntu] (http://metodiew.com/huawei-e173s-and-ubuntu/)
 * HDMI Sound - fix the issue
 * [Eclipse - Add Sass support] (http://stackoverflow.com/a/12322531)
