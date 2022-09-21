@@ -67,7 +67,7 @@ ln -s ~/Dropbox/Videos/ .
 * RescueTime
 * Grammarly - do not forget to login, otherwise the stats will be lost :)
 * [ack](https://metodiew.com/install-ack-on-ubuntu/)
-* [DevriX Asana Chrome Extension](https://github.com/DevriX/dx-chrome-asana-task-template)
+* [DevriX Asana Chrome Extension](https://github.com/DevriX/dx-chrome-asana-task-template) - `git clone git@github.com:DevriX/dx-chrome-asana-task-template.git`
 * [Albert](https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
   * Restore the config file - `.config/albert/albert.conf`
 * ~~Hamster~~
@@ -121,6 +121,7 @@ Some general tools which is hard to be categorized
 * FileZilla
 * Poedit
 * Gnome Tweaks Tools
+* [Write](https://www.styluslabs.com/download/)
 * [Peek](https://github.com/phw/peek)
 * ~~Virtual Box~~
 * ~~Gimp~~
@@ -138,6 +139,12 @@ Music, Videos, Gaming and the like
   * ~~CSGO~~
 * ~~Rhythmbox~~
 
+## LAMP Stack adjustmnets and local projects setup:
+  * Apache conf AllowOverride
+  * `sudo a2enmod rewrite`
+  * PHP upload limits adjustments
+  * Copy the Dropbox backup of SQLs and www folder to laptop
+  * Extract all projects and set them one by one
 
 ## OS Install
 * Apache Settings and all the sites-enabled and sites-available items
