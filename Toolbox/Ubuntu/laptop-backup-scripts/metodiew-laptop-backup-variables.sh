@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
@@ -12,6 +13,7 @@
 
 # Get the today's date
 NOW="`date +%Y%m%d`";
+NOWTIMEDATE="`date +%Y%m%d-%H:%M`";
 
 # Set the Backup directory. Probably the most important variable :)
 BACKUPFOLDERROOT='/home/metodiew/Dropbox/Backup Files';

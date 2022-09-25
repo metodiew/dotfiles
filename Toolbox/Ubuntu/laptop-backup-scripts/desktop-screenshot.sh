@@ -11,16 +11,17 @@
 # Get the variables from the separate file
 . ./metodiew-laptop-backup-variables.sh;
 
-echo "Taking a Desktop sleep";
+echo "Taking a Desktop screenshot";
+sleep 2;
 
 # Take the screenshot
-import -window root desktop-screenshot-$NOW.png
+import -window root desktop-screenshot-$NOWTIMEDATE.png
 
 # Fix the permissions
-sudo chown metodiew:metodiew desktop-screenshot-$NOW.png
+sudo chown metodiew:metodiew desktop-screenshot-$NOWTIMEDATE.png
 
 # Move the screenshot to Desktop Screenshots directory
-mv desktop-screenshot-$NOW.png  "$BACKUPFOLDERROOT/Desktop Screenshots/";
+mv desktop-screenshot-$NOWTIMEDATE.png  "$BACKUPFOLDERROOT/Desktop Screenshots/";
 
 echo 'Desktop Screenshot is ready.';
 sleep 2;
