@@ -16,6 +16,7 @@ We have to start with some of the tools and software we'll be using
 
 ### Dotfiles
 Clone the dotfies folder
+
 ```
 cd ~/Software
 git clone git@github.com:metodiew/dotfiles.git
@@ -75,6 +76,7 @@ ln -s ~/Dropbox/Videos/ .
 ### Communication
 * Slack
 * Viber
+  * Potential fix for Viber not starting [here](https://askubuntu.com/a/1403956/225076)
 * Zoom
 * Skype, *not required*
 * ~~[Skype 2](http://blog.metodiew.com/vtora-skype-instantsiya-secondary-skype-pod-ubuntu-12-04/)~~
@@ -108,7 +110,7 @@ All needed dev tools, programs and helpful gadgets
 * ~~Grunt `npm install -g grunt-cli`~~
 
 
-### Tools
+### Tools and Software
 Some general tools which is hard to be categorized
 
 * Guake  
@@ -123,21 +125,22 @@ Some general tools which is hard to be categorized
 * Gnome Tweaks Tools
 * [Write](https://www.styluslabs.com/download/)
 * [Peek](https://github.com/phw/peek)
+* Spotify
+* VLC
+* ~~Steam~~
+  * ~~CSGO~~
+* ~~Rhythmbox~~
 * ~~Virtual Box~~
 * ~~Gimp~~
 * ~~pCloud~~
 
 ## Misc and General Items
 * [Calendar - first day Monday](https://askubuntu.com/questions/197613/monday-as-first-day-in-gnome-shell-instead-of-sunday)
+* Enable Night Light feature
+* [Language select / Keyboard indicator on toolbar does not work](https://askubuntu.com/a/1407683/225076)
+* Apps and Libraries
+  * Laptop backup screenshot requires `sudo apt install imagemagick`
   
-
-### Fun and Freen time
-Music, Videos, Gaming and the like
-* Spotify
-* VLC
-* ~~Steam~~
-  * ~~CSGO~~
-* ~~Rhythmbox~~
 
 ## LAMP Stack adjustmnets and local projects setup:
   * Apache conf AllowOverride
