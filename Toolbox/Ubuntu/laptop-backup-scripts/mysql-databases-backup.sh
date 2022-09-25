@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2019.12.26
 # Description: This is a script for backup of all Apache MySQL database from my localhost machine.
 
 # Get the variables from the separate file
@@ -24,9 +22,10 @@ sudo service apache2 start;
 mkdir $NOW;
 
 databases=`mysql -u $USER -p$PASSWORD -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
+echo $databases;
 
 for db in $databases; do
-    if [[ "$db" != "information_schema" ]] && [[ "$db" != "performance_schema" ]] && [[ "$db" != "mysql" ]] && [[ "$db" != _* ]] ; then
+    if [ "$db" != "information_schema" ] && [ "$db" != "performance_schema" ] && [ "$db" != "mysql" ] && [ "$db" != _* ] ; then
         echo "Dumping database: $db"
 	    # Backup each database to the new created folder
         mysqldump --skip-lock-tables -u $USER -p$PASSWORD $db > $NOW/$NOW.$db.sql

@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2019.12.26
 # Description: this is a script file with all needed variables I'll use for the backup scripts
 
 ### Notes

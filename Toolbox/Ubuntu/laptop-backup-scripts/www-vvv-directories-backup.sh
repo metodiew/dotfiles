@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2019.12.26
 # Description: Creating a separate zip archive for each directory from VVV Localhost server, in my case /home/metodiew/vagrant-local/www/ :)
 # I'm storing the backups to my HDD, from where I'm copying them to an external drive, but you can skip
 # the `mv` part

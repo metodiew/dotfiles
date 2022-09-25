@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2019.12.26
 # Description: This is a script for taking a screenshot of my Desktop and move it to the backup files
 
 # Make sure you have this one instaled:

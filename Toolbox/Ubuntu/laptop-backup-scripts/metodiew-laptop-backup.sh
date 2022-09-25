@@ -1,10 +1,8 @@
 #!/bin/bash
 
-#
 # Author: Stanko Metodiev
 # Author Email: stanko@metodiew.com
 # Author URL: https://metodiew.com
-# Last Updated: 2020.11.14
 # Description: This is a script for a backup of all important files of my computer. A note, the script is designed to work with my Linux machine. However, most of the important files. Feel free to re-use and adjust the script for your own use :)
 
 # Ask to run the script with sudo
