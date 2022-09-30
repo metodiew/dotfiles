@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Author: Stanko Metodiev
+# Author Email: stanko@metodiew.com
+# Author URL: https://metodiew.com
+# Description: This is a script enabling/disabling the OS DNS mode
+# How to use:   clone the repository or copy the file. Place it somewhere in the file system.
+#               chmod +x dnd-shortcode
+#               Open the Settings > Keyboard > Keyboard Shortcodes > Custom Shortoces
+#               Set the name, place the path to file, e.g. /home/<user>/dnd-shortcode and select the keyboard combination
+
+# Get the current state of the DND mode
+state=$(gsettings get org.gnome.desktop.notifications show-banners)
+
+if [[ $state == 'true' ]]
+then
+  notify-send "Notifications: disabled";
+  sleep 0.1;
+  gsettings set org.gnome.desktop.notifications show-banners false
+else
+  gsettings set org.gnome.desktop.notifications show-banners true
+  notify-send "Notifications: enabled"
+fi
