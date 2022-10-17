@@ -12,7 +12,7 @@ We have to start with some of the tools and software we'll be using
 * Git `sudo apt-get install git`
 * Install **Dropbox**
   * Check the Selective Sync settings
-  * We'll need this one to start syncing files and folders as we'll need them below
+  * We'll need this one to start syncing fимаме хлебарки в кухнята? ￼ iles and folders as we'll need them below
 
 ### Dotfiles
 Clone the dotfies folder
@@ -76,8 +76,9 @@ ln -s ~/Dropbox/Videos/ .
 ### Communication
 * Slack
 * Viber
-  * Potential fix for Viber not starting [here](https://askubuntu.com/a/1403956/225076)
+  * Potential fix for Viber not starting [here](https://forums.linuxmint.com/viewtopic.php?p=2224326&sid=09ab85b16b16d0aa3020617a7b6b5db3#p2224326)
 * Zoom
+  * Verify the Zoom screenshare is working with Wayland
 * Skype, *not required*
 * ~~[Skype 2](http://blog.metodiew.com/vtora-skype-instantsiya-secondary-skype-pod-ubuntu-12-04/)~~
 
