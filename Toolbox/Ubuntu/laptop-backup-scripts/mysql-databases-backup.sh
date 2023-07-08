@@ -25,8 +25,9 @@ databases=`mysql -u $USER -p$PASSWORD -e "SHOW DATABASES;" | tr -d "| " | grep -
 echo $databases;
 
 for db in $databases; do
-    if [ "$db" != "information_schema" ] && [ "$db" != "performance_schema" ] && [ "$db" != "mysql" ] && [ "$db" != _* ] ; then
+    if [ "$db" != "information_schema" ] && [ "$db" != "performance_schema" ] && [ "$db" != "mysql" ] && [ "$db" != _* ] && [ "$db" != "sys" ] ; then
         echo "Dumping database: $db"
+
 	    # Backup each database to the new created folder
         mysqldump --skip-lock-tables -u $USER -p$PASSWORD $db > $NOW/$NOW.$db.sql
     fi
@@ -39,10 +40,7 @@ zip -r $NOW.zip $NOW;
 sudo chown metodiew:metodiew $NOW.zip
 
 mv $NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/SQLs";
-rm -r $NOW;
-
-# We need to stop Apache server after the script. Just in case.
-sudo service apache2 stop;
+sudo rm -r $NOW;
 
 echo "The MySQL backup script is ready";
 sleep 2;

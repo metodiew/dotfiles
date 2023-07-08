@@ -13,14 +13,14 @@ sleep 2;
 
 mkdir "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/"$NOW;
 cd $APACHEFOLDER;
-#for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
-for dir in `find . -maxdepth 1 -mindepth 1 -type d -exec basename {} \;`;
+
+for dir in `find . -maxdepth 1 -mindepth 1 -type d | sort; exec basename {} \;`;
 	do
 		# Create the archive
 		echo 'Starting with ' $dir'-'$NOW '.zip archive.';
-		#echo 'Starting with' ${dir//.\/}'-'$NOW'.zip archive ...';
+
 		sleep 2;
-		zip -r ${dir}-$NOW.zip ${dir} -x "**/node_modules/*"s;
+		zip -r ${dir}-$NOW.zip ${dir} -x '*/node_modules/*' -x '*.git*';
 
 		# Fix the permissions
 		sudo chown metodiew:metodiew ${dir}-$NOW.zip
@@ -34,7 +34,7 @@ for dir in `find . -maxdepth 1 -mindepth 1 -type d -exec basename {} \;`;
 
 		#echo 'Ready with' ${dir//.\/}'-'$NOW'.zip archive ...';
 		echo 'Ready with ' $dir'-'$NOW '.zip archive.';
-		
+
 		sleep 2;
 done
 
