@@ -117,6 +117,7 @@ Some general tools which is hard to be categorized
 * Guake  
   * Restore the Guake Preference with:  
   `guake --restore-preferences ~/Dropbox/Backup\ Files/Config\ Files/guake-preferences`
+  * [How To Use Guake Terminal Under Wayland](https://www.linuxuprising.com/2021/12/how-to-use-guake-terminal-under-wayland.html)
 * Vim
 * Torguard
 * [CopyQ clipboard](https://github.com/hluk/CopyQ)
