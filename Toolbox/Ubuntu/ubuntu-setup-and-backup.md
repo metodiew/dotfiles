@@ -71,6 +71,7 @@ ln -s ~/Dropbox/Videos/ .
 * [DevriX Asana Chrome Extension](https://github.com/DevriX/dx-chrome-asana-task-template) - `git clone git@github.com:DevriX/dx-chrome-asana-task-template.git`
 * [Albert](https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
   * Restore the config file - `.config/albert/albert.conf`
+* [Notification Clock with time zones](sudo apt install gnome-clocks)
 * ~~Hamster~~
 
 ### Communication
