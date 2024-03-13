@@ -130,6 +130,7 @@ Some general tools which is hard to be categorized
 * [Peek](https://github.com/phw/peek)
 * Spotify
 * VLC
+* [Screen Rotate](https://extensions.gnome.org/extension/5389/screen-rotate/)
 * ~~Steam~~
   * ~~CSGO~~
 * ~~Rhythmbox~~
