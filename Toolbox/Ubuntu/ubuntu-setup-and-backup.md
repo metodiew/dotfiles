@@ -126,6 +126,7 @@ Some general tools which is hard to be categorized
 * FileZilla
 * Poedit
 * Gnome Tweaks Tools
+* [Ubuntu Notification Shortcut](https://github.com/metodiew/ubuntu-notification-shortcut)
 * [Write](https://www.styluslabs.com/download/)
 * [Peek](https://github.com/phw/peek)
 * Spotify
