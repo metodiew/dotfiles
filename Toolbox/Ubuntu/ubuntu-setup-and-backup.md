@@ -12,7 +12,7 @@ We have to start with some of the tools and software we'll be using
 * Git `sudo apt-get install git`
 * Install **Dropbox**
   * Check the Selective Sync settings
-  * We'll need this one to start syncing fимаме хлебарки в кухнята? ￼ iles and folders as we'll need them below
+  * We'll need this one to start syncing files and folders as we'll need them below
 
 ### Dotfiles
 Clone the dotfies folder
