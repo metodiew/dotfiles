@@ -94,25 +94,25 @@ ln -s ~/Dropbox/WORK/ .
 All needed dev tools, programs and helpful gadgets
 
 * Install [Visual Studio Code](https://linuxiac.com/install-visual-studio-code-on-ubuntu-22-04/)
-* NPM install
+* Node and NPM install
   ```
   sudo apt install npm
   sudo apt install nodejs
   ```
+  * run this in order to make sure node is working properly `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+* [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script)
 * LAMP stack
   * [Ubuntu LAMP Stack](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-22-04) or a newer version
   * Fix the [MySQL Pssword](https://stackoverflow.com/questions/50691977/how-to-reset-the-root-password-in-mysql-8-0-11) or an alternative version
   * Install [phpMyAdmin](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-22-04) or an alternative version
 * [WP-CLI](http://wp-cli.org/#installing)
-* Gulp: `npm install gulp -g`
-* Node
-  * run this in order to make sure node is working properly `sudo ln -s /usr/bin/nodejs /usr/bin/node`
+* Gulp: `sudo npm install gulp -g`
+
 * Xdebug
 * Sass/Compass
   * We need to install Ruby first: `sudo apt-get install ruby-full`
   * Then: `sudo gem install sass --no-user-install`
-* [Git Open] - `npm install --global git-open`
-* [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script)
+* [Git Open] - `sudo npm install --global git-open`
 * ~~SVN~~
 * ~~Vagrant~~
 * ~~VVV~~
