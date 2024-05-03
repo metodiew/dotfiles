@@ -19,6 +19,9 @@ Clone the dotfies folder
 
 ```
 cd ~/Software
+```
+and run
+```
 git clone git@github.com:metodiew/dotfiles.git
 ```
 
@@ -26,6 +29,9 @@ Apply the dotfiles to my machine
 Go to the ~ folder and delete the existing files
 ```
 cd ~/
+```
+and run
+```
 rm .bash_logout .bash_profile .bashrc .profile
 ```
 
@@ -59,6 +65,8 @@ ln -s ~/Dropbox/Downloads/ .
 ln -s ~/Dropbox/Music/ .
 ln -s ~/Dropbox/Pictures/ .
 ln -s ~/Dropbox/Videos/ .
+ln -s ~/Dropbox/WORK/ .
+
 
 ```
 
@@ -72,7 +80,6 @@ ln -s ~/Dropbox/Videos/ .
 * [Albert](https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
   * Restore the config file - `.config/albert/albert.conf`
 * [Notification Clock with time zones](sudo apt install gnome-clocks)
-* ~~Hamster~~
 
 ### Communication
 * Slack
