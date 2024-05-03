@@ -103,6 +103,7 @@ All needed dev tools, programs and helpful gadgets
 * [nvm](https://github.com/nvm-sh/nvm/blob/master/README.md#install--update-script)
 * LAMP stack
   * [Ubuntu LAMP Stack](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mysql-php-lamp-stack-on-ubuntu-22-04) or a newer version
+    * [Linux Mint instlals older PHP version](https://php.watch/articles/php-8.3-install-upgrade-on-debian-ubuntu)
   * Fix the [MySQL Pssword](https://stackoverflow.com/questions/50691977/how-to-reset-the-root-password-in-mysql-8-0-11) or an alternative version
   * Install [phpMyAdmin](https://www.digitalocean.com/community/tutorials/how-to-install-and-secure-phpmyadmin-on-ubuntu-22-04) or an alternative version
 * [WP-CLI](http://wp-cli.org/#installing)
@@ -127,6 +128,7 @@ Some general tools which is hard to be categorized
   `guake --restore-preferences ~/Dropbox/Backup\ Files/Config\ Files/guake-preferences`
   * [How To Use Guake Terminal Under Wayland](https://www.linuxuprising.com/2021/12/how-to-use-guake-terminal-under-wayland.html)
 * Vim
+* Flameshot
 * Torguard
 * [CopyQ clipboard](https://github.com/hluk/CopyQ)
 * Dropbox
