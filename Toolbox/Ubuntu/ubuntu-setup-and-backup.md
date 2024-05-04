@@ -132,6 +132,7 @@ Some general tools which is hard to be categorized
 * Torguard
 * [CopyQ clipboard](https://github.com/hluk/CopyQ)
 * Dropbox
+  * Also, consider installing `Nemo Dropbox` for `Cinnamon Desktop` environment
 * FileZilla
 * Poedit
 * Gnome Tweaks Tools
