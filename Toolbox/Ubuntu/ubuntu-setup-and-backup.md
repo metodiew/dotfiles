@@ -72,7 +72,7 @@ ln -s ~/Dropbox/WORK/ .
 
 ### Productivity
 * Toggl
-* Todost app
+* Todoist app
 * RescueTime
 * Grammarly - do not forget to login, otherwise the stats will be lost :)
 * [ack](https://metodiew.com/install-ack-on-ubuntu/)
@@ -80,6 +80,9 @@ ln -s ~/Dropbox/WORK/ .
 * [Albert](https://superuser.com/questions/1560683/how-to-install-albert-keyboard-launcher)
   * Restore the config file - `.config/albert/albert.conf`
 * [Notification Clock with time zones](sudo apt install gnome-clocks)
+* Flameshot
+ * Set the [custom shortcuts](https://flameshot.org/docs/guide/key-bindings/) and replace print button
+ * set the location of the screenshots
 
 ### Communication
 * Slack
