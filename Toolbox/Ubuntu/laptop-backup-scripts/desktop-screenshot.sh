@@ -24,4 +24,6 @@ sudo chown metodiew:metodiew desktop-screenshot-$NOWTIMEDATE.png
 mv desktop-screenshot-$NOWTIMEDATE.png  "$BACKUPFOLDERROOT/Desktop Screenshots/";
 
 echo 'Desktop Screenshot is ready.';
+notify-send 'Desktop Screenshot is ready.';
+
 sleep 2;

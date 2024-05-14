@@ -81,3 +81,4 @@ sleep 1;
 
 # That's it :)
 echo "That's all folks, we are ready :)";
+notify-send "That's all folks, we are ready :)";

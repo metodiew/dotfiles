@@ -20,7 +20,8 @@ for dir in `find . -maxdepth 1 -mindepth 1 -type d | sort; exec basename {} \;`;
 		echo 'Starting with ' $dir'-'$NOW '.zip archive.';
 
 		sleep 2;
-		zip -r ${dir}-$NOW.zip ${dir} -x '*/node_modules/*' -x '*.git*';
+		#zip -r ${dir}-$NOW.zip ${dir} -x '*/node_modules/*' -x '*.git*'; # leaving for the history
+		zip -r ${dir}-$NOW.zip ${dir} -x '*/node_modules/*';
 
 		# Fix the permissions
 		sudo chown metodiew:metodiew ${dir}-$NOW.zip
@@ -42,4 +43,6 @@ done
 cd "$BACKUPFOLDERROOT/";
 
 echo "We are ready with the Apache Folder backup script";
+notify-send "We are ready with the Apache Folder backup script";
+
 sleep 2;

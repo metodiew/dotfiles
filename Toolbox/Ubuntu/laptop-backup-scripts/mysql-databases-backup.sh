@@ -43,4 +43,6 @@ mv $NOW.zip "$BACKUPFOLDERROOT/WWW Backup/Apache/SQLs";
 sudo rm -r $NOW;
 
 echo "The MySQL backup script is ready";
+notify-send "The MySQL backup script is ready";
+
 sleep 2;
