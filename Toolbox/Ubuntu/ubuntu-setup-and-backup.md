@@ -145,6 +145,7 @@ Some general tools which is hard to be categorized
 * Spotify
 * VLC
 * [Screen Rotate](https://extensions.gnome.org/extension/5389/screen-rotate/)
+* Add Power Profiles, if there are no available - [click here](https://forums.linuxmint.com/viewtopic.php?t=387242)
 * ~~Steam~~
   * ~~CSGO~~
 * ~~Rhythmbox~~
