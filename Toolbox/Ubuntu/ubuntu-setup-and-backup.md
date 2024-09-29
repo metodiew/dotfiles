@@ -83,6 +83,7 @@ ln -s ~/Dropbox/WORK/ .
 * Flameshot
  * Set the [custom shortcuts](https://flameshot.org/docs/guide/key-bindings/) and replace print button
  * set the location of the screenshots
+ * Enable [Fingerprint](https://forums.linuxmint.com/viewtopic.php?t=408129) setup
 
 ### Communication
 * Slack
