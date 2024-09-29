@@ -1,4 +1,4 @@
-# Ubuntu Setup and Backup
+# Linux Setup and Backup
 This is a personal step-by-step for installing a new machine or just refrehsing my Ubuntu setup. If you feel it useful or have any feedback, please drop a line :)
 
 For some context, I'm usuing the [laptop-backup-scripts](https://github.com/metodiew/dotfiles/tree/master/Toolbox/Ubuntu/laptop-backup-scripts) set of scripts here where I backup my laptop on a weekly basic and I can easily restore the setup just like it was before.
