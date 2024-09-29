@@ -19,10 +19,13 @@ echo 'Starting with backup important files ...';
 sleep 2;
 
 # Desktop screenshot
-. ./desktop-screenshot.sh;
+./desktop-screenshot.sh;
 
-dconf dump /apps/guake/ > "$BACKUPFOLDERROOT/Config Files/guake-preferences";
+
+guake --save-preferences "$BACKUPFOLDERROOT/Config Files/guake-preferences";
 echo "Guake preferences are ready.";
+
+
 
 # Backup of the dotfiles
 echo 'Starting with dotfiles ...';
