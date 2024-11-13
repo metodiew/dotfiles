@@ -16,3 +16,15 @@ define( 'MEDIA_TRASH', true ); // Enable the "Trash" Feature for Media Files
 define( 'DISALLOW_FILE_EDIT', true ); // Disable theme/plugin editor
 define( 'WP_POST_REVISIONS', 5 ); // Limit the number of revisions. Or enable them, as some servers have them disabled by default
 define( 'ALLOW_UNFILTERED_UPLOADS', true ); // Allow Unfiltered WordPress Uploads for Administrators
+
+
+// Custom debug function
+function debug_to_console( $data ) {
+    if ( WP_DEBUG ) {
+        if ( is_array( $data ) || is_object( $data ) ) {
+            error_log( print_r( $data, true ) );
+        } else {
+            error_log( $data );
+        }
+    }
+}
