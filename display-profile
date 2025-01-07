@@ -1,0 +1,65 @@
+#!/bin/bash
+
+# Define profiles
+set_home() {
+    xrandr  --output HDMI-1 --primary --mode 2560x1440 --rate 60 --pos 0x0 \
+            --output eDP-1 --off
+}
+
+set_office() {
+    xrandr  --output HDMI-1 --primary --mode 2560x1440 --rate 60 --pos 0x0 \
+            --output eDP-1 --off
+}
+
+set_meeting() {
+    xrandr  --output HDMI-1 --mode 2560x1440 --rate 59.95 --pos 0x0 \
+            --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440 --primary
+}
+
+set_video() {
+    xrandr  --output HDMI-1 --mode 2560x1440 --rate 59.95 --pos 0x0 --primary \
+            --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440
+}
+
+set_meeting_home() {
+    xrandr  --output HDMI-1 --mode 1920x1080 --rate 59.95 --pos 0x0 --primary \
+            --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440
+}
+
+set_default() {
+    xrandr  --output HDMI-1 --off \
+            --output eDP-1 --mode 2048x1152 --rate 60 --pos 0x1440
+
+}
+
+# Parse arguments
+if [ -z "$1" ]; then
+    echo "Usage: display-profile [home|office|meeting|video|default]"
+    exit 1
+fi
+
+case $1 in
+    home)
+        set_home
+        ;;
+    office)
+        set_office
+        ;;
+    meeting)
+        set_meeting
+        ;;
+    meeting_home)
+        set_meeting_home
+        ;;
+    video)
+        set_video
+        ;;
+    default)
+        set_default
+        ;;
+    *)
+        echo "Invalid profile: $1"
+        echo "Valid profiles are: home, office, meeting, default"
+        exit 1
+        ;;
+esac
