@@ -1,40 +1,48 @@
 #!/bin/bash
 
+# Define the list of available profiles
+profiles='home|office|meeting|meeting-home|video|video-home|default';
+
 # Define profiles
-set_home() {
-    xrandr  --output HDMI-1 --primary --mode 2560x1440 --rate 60 --pos 0x0 \
+set_office() {
+    xrandr  --output HDMI-1 --primary --mode 2560x1440 --rate 60.00 --pos 0x0 \
             --output eDP-1 --off
 }
 
-set_office() {
-    xrandr  --output HDMI-1 --primary --mode 2560x1440 --rate 60 --pos 0x0 \
+set_home() {
+    xrandr  --output HDMI-1 --primary --mode 2560x1440 --rate 60.00 --pos 0x0 \
             --output eDP-1 --off
 }
 
 set_meeting() {
-    xrandr  --output HDMI-1 --mode 2560x1440 --rate 59.95 --pos 0x0 \
+    xrandr  --output HDMI-1 --mode 2560x1440 --rate 60.00 --pos 0x0 \
             --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440 --primary
 }
 
-set_video() {
-    xrandr  --output HDMI-1 --mode 2560x1440 --rate 59.95 --pos 0x0 --primary \
+set_meeting_home() {
+    xrandr  --output HDMI-1 --mode 1920x1080 --rate 60.00 --pos 0x0 --primary \
             --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440
 }
 
-set_meeting_home() {
-    xrandr  --output HDMI-1 --mode 1920x1080 --rate 59.95 --pos 0x0 --primary \
+set_video() {
+    xrandr  --output HDMI-1 --mode 2560x1440 --rate 60.00 --pos 0x0 --primary \
+            --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440
+}
+
+set_video_home() {
+    xrandr  --output HDMI-1 --mode 1920x1080 --rate 60.00 --pos 0x0 --primary \
             --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 156x1440
 }
 
 set_default() {
     xrandr  --output HDMI-1 --off \
-            --output eDP-1 --mode 2048x1152 --rate 60 --pos 0x1440
+            --output eDP-1 --mode 2048x1152 --rate 60.00 --pos 0x1440
 
 }
 
 # Parse arguments
 if [ -z "$1" ]; then
-    echo "Usage: display-profile [home|office|meeting|video|default]"
+    echo "Usage: display-profile [$profiles]"
     exit 1
 fi
 
@@ -54,12 +62,15 @@ case $1 in
     video)
         set_video
         ;;
+    video_home)
+        set_video_home
+        ;;
     default)
         set_default
         ;;
     *)
         echo "Invalid profile: $1"
-        echo "Valid profiles are: home, office, meeting, default"
+        echo "Valid profiles are: $profiles"
         exit 1
         ;;
 esac
