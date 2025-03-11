@@ -25,8 +25,6 @@ sleep 2;
 guake --save-preferences "$BACKUPFOLDERROOT/Config Files/guake-preferences";
 echo "Guake preferences are ready.";
 
-
-
 # Backup of the dotfiles
 echo 'Starting with dotfiles ...';
 sleep 2;
@@ -39,9 +37,11 @@ cp /home/metodiew/.git-commit-template.txt "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.gitconfig "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.profile "$BACKUPFOLDERROOT/Config Files/";
 cp /home/metodiew/.vimrc "$BACKUPFOLDERROOT/Config Files/";
+cp ~/.config/flameshot/flameshot.ini "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.vim "$BACKUPFOLDERROOT/Config Files/";
 cp -r /home/metodiew/.vscode "$BACKUPFOLDERROOT/Config Files/";
+
 
 # SSH/FileZilla backup
 zip -r "$BACKUPFOLDERROOT/Config Files/ssh folder/$NOW.zip" /home/metodiew/.ssh;
