@@ -3,6 +3,8 @@
 
 ## Multisite - loop all subsites and execute a command:
 
+Check the separate repository for more commands [https://github.com/metodiew/wp-cli-commands](https://github.com/metodiew/wp-cli-commands)
+
 Deletes this transient from all sub-sites
 ```
 wp site list --field=url | xargs -n1 -I % wp --url=% transient delete transient-name --skip-plugins --skip-themes
