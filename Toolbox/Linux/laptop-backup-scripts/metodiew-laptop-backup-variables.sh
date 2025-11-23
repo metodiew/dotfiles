@@ -23,4 +23,4 @@ USER="root";
 PASSWORD="root";
 
 # Apache folder
-APACHEFOLDER='/var/www/html/projects';
+APACHEFOLDER='/var/www/html/';
