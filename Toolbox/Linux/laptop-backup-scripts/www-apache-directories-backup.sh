@@ -14,8 +14,11 @@ sleep 2;
 mkdir "$BACKUPFOLDERROOT/WWW Backup/Apache/www-directory-backup/"$NOW;
 cd $APACHEFOLDER;
 
-for dir in `find . -maxdepth 1 -mindepth 1 -type d | sort; exec basename {} \;`;
+for dir in `find . -maxdepth 1 -mindepth 1 -type d | sort`;
 	do
+		# Remove the leading "./" from find output for cleaner names.
+		dir="${dir#./}"
+
 		# Create the archive
 		echo 'Starting with ' $dir'-'$NOW '.zip archive.';
 
