@@ -15,7 +15,7 @@ for dir in `find . -maxdepth 1 -type d  | grep -v "^\.$" `;
 		# Create the archive
 		echo 'Starting with' ${dir//.\/}'-'$NOW'.zip archive ...';
 		sleep 5;
-		zip -r ${dir}-$NOW.zip ${dir};
+		zip -r ${dir}-$NOW.zip ${dir} -x '*/node_modules/*';
 
 		# Move the created archive to a specific directory
 		# Most likely in your case this will be different
