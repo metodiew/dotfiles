@@ -123,3 +123,27 @@ export NVM_DIR="$HOME/.nvm"
 
 # export GOOGLE_APPLICATION_CREDENTIALS="~/gcloud-api.json"
 # export GOOGLE_APPLICATION_CREDENTIALS="/home/metodiew/gcloud-api.json"
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
+# Set Cursor as a replacement of Visual Studio Code
+alias code='cursor'
+function cursor() {
+    if [ "$1" = "." ]; then
+        command cursor "$(pwd)" > /dev/null 2>&1 & disown
+    else
+        command cursor "$@"
+    fi
+}
+
+if ! grep -q 'export PATH="$HOME/.local/bin:$PATH"' ~/.bashrc; then
+    echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+fi
+
+
+
+export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:~/Software
+export PATH=$PATH:~/Software
+
+# Claude Code CLI reminder
+alias claude='printf "\033[33mNote: Use Desktop app instead — Chat (syncs web/mobile), Cowork (files/terminal), Code (vibe coding).\033[0m\n" && command claude'
