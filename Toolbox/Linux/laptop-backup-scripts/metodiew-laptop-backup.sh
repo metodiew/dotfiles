@@ -151,6 +151,13 @@ sleep 1;
 
 # Claude settings backup
 echo 'Starting with Claude settings backup ...';
+if [ -f "$USER_HOME/.claude.json" ]; then
+	cp "$USER_HOME/.claude.json" "$BACKUPFOLDERROOT/Config Files/claude.json"
+	sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/claude.json"
+	echo '.claude.json backup ready.'
+else
+	echo '.claude.json not found, skipping.'
+fi
 if [ -d "$USER_HOME/.claude" ]; then
 	zip -r "$BACKUPFOLDERROOT/Config Files/claude-$NOW.zip" "$USER_HOME/.claude"
 	sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/claude-$NOW.zip"
