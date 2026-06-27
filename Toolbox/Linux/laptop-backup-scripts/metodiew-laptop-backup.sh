@@ -72,6 +72,18 @@ cp -r $USER_HOME/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r $USER_HOME/.vim "$BACKUPFOLDERROOT/Config Files/";
 cp -r $USER_HOME/.vscode "$BACKUPFOLDERROOT/Config Files/";
 
+# VS Code extensions list
+if command -v code >/dev/null 2>&1; then
+	if [ -n "$SUDO_USER" ]; then
+		sudo -E -u "$SUDO_USER" HOME="$USER_HOME" code --list-extensions > "$BACKUPFOLDERROOT/Config Files/vscode-extensions.txt" 2>/dev/null
+	else
+		code --list-extensions > "$BACKUPFOLDERROOT/Config Files/vscode-extensions.txt" 2>/dev/null
+	fi
+	echo "VS Code extensions list saved."
+else
+	echo "VS Code not installed, skipping extensions list."
+fi
+
 # Cursor backup
 mkdir -p "$BACKUPFOLDERROOT/Config Files/Cursor"
 
@@ -85,6 +97,18 @@ if [ -f "$USER_HOME/.config/Cursor/User/keybindings.json" ]; then
 	cp "$USER_HOME/.config/Cursor/User/keybindings.json" "$BACKUPFOLDERROOT/Config Files/Cursor/";
 else
 	echo "Cursor keybindings.json not found, skipping.";
+fi
+
+# Cursor extensions list
+if command -v cursor >/dev/null 2>&1; then
+	if [ -n "$SUDO_USER" ]; then
+		sudo -E -u "$SUDO_USER" HOME="$USER_HOME" cursor --list-extensions > "$BACKUPFOLDERROOT/Config Files/Cursor/cursor-extensions.txt" 2>/dev/null
+	else
+		cursor --list-extensions > "$BACKUPFOLDERROOT/Config Files/Cursor/cursor-extensions.txt" 2>/dev/null
+	fi
+	echo "Cursor extensions list saved."
+else
+	echo "Cursor not installed, skipping extensions list."
 fi
 
 if [ -d "$USER_HOME/.config/Cursor/User/snippets" ]; then
