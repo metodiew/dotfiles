@@ -4,6 +4,9 @@
 # Companion to linux-setup-and-backup.md. Safe to re-run: each step checks before acting.
 #
 # PREREQ (manual, not scripted): Dropbox installed, logged in, and fully synced.
+#   After login, set Dropbox > Preferences > Sync > Selective Sync to match the reference
+#   screenshot in the backup: ~/Dropbox/Backup Files/dropbox-selective-sync-*.png
+#   (use the most recent dated one). This decides which folders sync down before you rely on them.
 # Everything below assumes ~/Dropbox is present and up to date.
 #
 # Author: Stanko Metodiev
