@@ -156,6 +156,9 @@ sleep 1;
 # Archive the hosts file
 cp /etc/hosts "$BACKUPFOLDERROOT/Config Files/Hosts/hosts.$NOW";
 
+# Capture the manually-installed package list (for provision.sh replay on a fresh install)
+apt-mark showmanual > "$BACKUPFOLDERROOT/Config Files/pkglist.txt";
+
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-available-$NOW.zip" /etc/apache2/sites-available;
 
@@ -168,7 +171,10 @@ sudo zip -r "$BACKUPFOLDERROOT/Config Files/Config Folder/autostart-$NOW.zip" $U
 # Fix the permissions
 sudo chown metodiew:metodiew -R "$BACKUPFOLDERROOT/Config Files/"
 
-# Archive and Backup System Connection directory
+# Archive and Backup NetworkManager connections (WiFi/VPN)
+mkdir -p "$BACKUPFOLDERROOT/Config Files/NetworkManager"
+sudo zip -r "$BACKUPFOLDERROOT/Config Files/NetworkManager/system-connections-$NOW.zip" /etc/NetworkManager/system-connections;
+sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/NetworkManager/system-connections-$NOW.zip"
 
 echo 'Config directories backup is ready.';
 sleep 1;

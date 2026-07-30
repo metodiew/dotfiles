@@ -46,6 +46,17 @@ cp ~/Software/dotfiles/.vimrc .
 cp -r ~/Software/dotfiles/.scripts .
 ```
 
+### Personal repos
+Clone the personal repos from GitHub (also zipped to Dropbox weekly as a fallback):
+```
+git clone git@github.com:metodiew/me.git ~/me
+git clone git@github.com:metodiew/Control-Room.git ~/Software/control-room
+```
+* `~/me` — personal identity/context repo
+* `~/Software/control-room` — self-hosted ops hub. No secrets stored locally: secrets live in
+  Infisical (cloud) and the machine identity lives in `/opt/control-room/.env` on the server.
+  Recovery here is just the `git clone` above.
+
 ### Browsers
 * Chrome
 * Opera, *not required*
