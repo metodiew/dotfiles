@@ -27,12 +27,28 @@ log "Base packages"
 sudo apt update
 sudo apt install -y openssh-server git curl zip unzip build-essential
 
-# Replay the manually-installed package list (add this capture to the backup script:
-#   apt-mark showmanual > "$BACKUP/Config Files/pkglist.txt")
+# Replay saved packages intelligently. Two things matter here:
+#   1. "Actually needed" — skip anything the fresh Mint install already has (install only the
+#      delta you added on top of stock). Prevents reinstalling ~1900 default packages.
+#   2. "Not outdated" — apt installs by NAME, so you always get the CURRENT repo version, never
+#      the stale one captured at backup time. Packages that no longer exist in the repos are
+#      detected and listed for review instead of failing the run.
+# Use pkglist.txt (manual pkgs). pkglist-full.txt (dpkg --get-selections) is REFERENCE ONLY —
+# never bulk-install it; it contains auto-deps and transitional packages.
 PKGLIST="$BACKUP/Config Files/pkglist.txt"
 if [ -f "$PKGLIST" ]; then
-  log "Restoring apt packages from pkglist.txt"
-  sudo apt install -y $(cat "$PKGLIST") || true   # TODO: prune one-off / GUI-only entries
+  log "Restoring apt packages (delta only, current versions)"
+  sudo apt update
+  want=(); present=0; gone=()
+  while read -r p; do
+    [ -z "$p" ] && continue
+    if dpkg -s "$p" >/dev/null 2>&1; then present=$((present+1)); continue; fi   # already on the fresh system
+    if apt-cache show "$p" >/dev/null 2>&1; then want+=("$p"); else gone+=("$p"); fi   # still in the repos?
+  done < "$PKGLIST"
+  echo "already present, skipped: $present"
+  echo "no longer in repos (review manually): ${gone[*]:-none}"
+  echo "installing (${#want[@]} pkgs, current versions): ${want[*]:-none}"
+  [ ${#want[@]} -gt 0 ] && sudo apt install -y "${want[@]}"
 fi
 
 # --- 2. Dotfiles -------------------------------------------------------------
