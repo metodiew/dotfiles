@@ -22,6 +22,13 @@ log() { printf '\n\033[1;32m==>\033[0m %s\n' "$*"; }
 # --- 0. Sanity ---------------------------------------------------------------
 [ -d "$HOME/Dropbox" ] || { echo "Dropbox not synced yet. Install + login first."; exit 1; }
 
+# --- 0b. Dropbox no-sync folders --------------------------------------------
+# Best run RIGHT AFTER Dropbox login, BEFORE full sync, so the no-sync folders never download:
+#   bash "$DOTFILES/Toolbox/Linux/laptop-backup-scripts/dropbox-exclude-restore.sh"
+# If Dropbox already synced everything, this still re-excludes them (reclaims local space).
+EXCL_RESTORE="$DOTFILES/Toolbox/Linux/laptop-backup-scripts/dropbox-exclude-restore.sh"
+if [ -f "$EXCL_RESTORE" ]; then log "Re-applying Dropbox no-sync exclusions"; bash "$EXCL_RESTORE" || true; fi
+
 # --- 1. Base packages --------------------------------------------------------
 log "Base packages"
 sudo apt update

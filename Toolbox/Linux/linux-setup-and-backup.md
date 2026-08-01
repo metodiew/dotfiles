@@ -11,8 +11,14 @@ We have to start with some of the tools and software we'll be using
 * Enable SSH `sudo apt install openssh-server -y`
 * Git `sudo apt-get install git`
 * Install **Dropbox**
-  * Check the Selective Sync settings
   * We'll need this one to start syncing files and folders as we'll need them below
+  * **Re-apply the no-sync folders (Selective Sync exclusions):** once `Backup Files/Config Files`
+    has synced, and ideally BEFORE the full sync runs, execute this file:
+    ```
+    bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-exclude-restore.sh
+    ```
+    It replays `Backup Files/Config Files/dropbox-exclude-list.txt` (saved by the weekly backup),
+    so the no-sync folders are never downloaded. This replaces the old manual selective-sync screenshot.
 
 ### Dotfiles
 Clone the dotfies folder

@@ -161,6 +161,19 @@ apt-mark showmanual > "$BACKUPFOLDERROOT/Config Files/pkglist.txt";             
 dpkg --get-selections > "$BACKUPFOLDERROOT/Config Files/pkglist-full.txt";          # full dpkg selection, reference
 command -v flatpak >/dev/null 2>&1 && flatpak list --app --columns=application > "$BACKUPFOLDERROOT/Config Files/pkglist-flatpak.txt";
 
+# Dropbox Selective Sync exclusions (the "no-sync" folders). Clean absolute paths, one per line.
+# Restored after a reinstall by dropbox-exclude-restore.sh. Replaces the manual selective-sync screenshot.
+if command -v dropbox >/dev/null 2>&1; then
+	if [ -n "$SUDO_USER" ]; then
+		sudo -E -u "$SUDO_USER" HOME="$USER_HOME" dropbox exclude list 2>/dev/null | grep -oE '/home/.*/Dropbox/.*' > "$BACKUPFOLDERROOT/Config Files/dropbox-exclude-list.txt"
+	else
+		dropbox exclude list 2>/dev/null | grep -oE '/home/.*/Dropbox/.*' > "$BACKUPFOLDERROOT/Config Files/dropbox-exclude-list.txt"
+	fi
+	echo "Dropbox exclude list saved."
+else
+	echo "Dropbox CLI not found, skipping exclude list."
+fi
+
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-available-$NOW.zip" /etc/apache2/sites-available;
 
