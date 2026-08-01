@@ -81,7 +81,7 @@ done
 databases=`mysql -u $USER -p$PASSWORD -e "SHOW DATABASES;" | tr -d "| " | grep -v Database`
 
 for db in $databases; do
-	if [ "$db" != "information_schema" ] && [ "$db" != "performance_schema" ] && [ "$db" != "mysql" ] && [ "$db" != _* ] && [ "$db" != "sys" ] ; then
+	if [ "$db" != "information_schema" ] && [ "$db" != "performance_schema" ] && [ "$db" != "mysql" ] && [ "$db" != _* ] && [ "$db" != "sys" ] && [ "$db" != "phpmyadmin" ] ; then
 		skip_db=0
 		for wp_db in "${project_backed_up_dbs[@]}"; do
 			if [ "$db" = "$wp_db" ]; then
