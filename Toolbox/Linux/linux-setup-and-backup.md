@@ -115,6 +115,10 @@ ln -s ~/Dropbox/WORK/ .
 All needed dev tools, programs and helpful gadgets
 
 * Install [Visual Studio Code](https://linuxiac.com/install-visual-studio-code-on-ubuntu-22-04/)
+  * VS Code + Cursor restore is automated by `provision.sh`: user settings/keybindings/snippets from
+    `Config Files/VSCode/` and `Config Files/Cursor/`, and extensions reinstalled from
+    `vscode-extensions.txt` / `cursor-extensions.txt` via `code`/`cursor --install-extension`.
+  * The heavy `~/.vscode/extensions` folder is NOT backed up — it's rebuilt from the list.
 * Node and NPM install
   ```
   sudo apt install npm

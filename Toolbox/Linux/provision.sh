@@ -99,11 +99,24 @@ log "System tunables"
 echo 'vm.swappiness=10' | sudo tee /etc/sysctl.d/99-swappiness.conf >/dev/null
 sudo sysctl --system >/dev/null
 
-# --- 7. Editors --------------------------------------------------------------
-log "VS Code / Cursor extensions"
+# --- 7. Editors: VS Code + Cursor (settings + extensions) --------------------
+log "VS Code + Cursor: restore settings and reinstall extensions"
+# Settings
+if [ -d "$BACKUP/Config Files/VSCode" ]; then
+  mkdir -p "$HOME/.config/Code/User"
+  cp -f "$BACKUP/Config Files/VSCode/"*.json "$HOME/.config/Code/User/" 2>/dev/null || true
+  [ -d "$BACKUP/Config Files/VSCode/snippets" ] && cp -rf "$BACKUP/Config Files/VSCode/snippets" "$HOME/.config/Code/User/"
+fi
+if [ -d "$BACKUP/Config Files/Cursor" ]; then
+  mkdir -p "$HOME/.config/Cursor/User"
+  cp -f "$BACKUP/Config Files/Cursor/"*.json "$HOME/.config/Cursor/User/" 2>/dev/null || true
+  [ -d "$BACKUP/Config Files/Cursor/snippets" ] && cp -rf "$BACKUP/Config Files/Cursor/snippets" "$HOME/.config/Cursor/User/"
+fi
+# Extensions from the saved lists (rebuilt from marketplace, not the heavy folders)
 VSEXT="$BACKUP/Config Files/vscode-extensions.txt"
-[ -f "$VSEXT" ] && command -v code >/dev/null && xargs -L1 code --install-extension < "$VSEXT" || true
-# TODO: same for Cursor from "Config Files/Cursor/cursor-extensions.txt"
+CUEXT="$BACKUP/Config Files/Cursor/cursor-extensions.txt"
+[ -f "$VSEXT" ] && command -v code   >/dev/null && xargs -L1 code   --install-extension < "$VSEXT" || true
+[ -f "$CUEXT" ] && command -v cursor >/dev/null && xargs -L1 cursor --install-extension < "$CUEXT" || true
 
 # --- 8. NetworkManager (WiFi/VPN) -------------------------------------------
 log "NetworkManager connections"

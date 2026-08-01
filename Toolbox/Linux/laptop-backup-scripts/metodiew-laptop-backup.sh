@@ -70,7 +70,14 @@ else
 fi
 cp -r $USER_HOME/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r $USER_HOME/.vim "$BACKUPFOLDERROOT/Config Files/";
-cp -r $USER_HOME/.vscode "$BACKUPFOLDERROOT/Config Files/";
+
+# VS Code user settings (NOT ~/.vscode — that's just the ~1.7GB regenerable extensions folder).
+# Extensions are restored from vscode-extensions.txt via `code --install-extension` in provision.sh.
+mkdir -p "$BACKUPFOLDERROOT/Config Files/VSCode"
+VSCODE_USER="$USER_HOME/.config/Code/User"
+[ -f "$VSCODE_USER/settings.json" ]    && cp "$VSCODE_USER/settings.json"    "$BACKUPFOLDERROOT/Config Files/VSCode/"
+[ -f "$VSCODE_USER/keybindings.json" ] && cp "$VSCODE_USER/keybindings.json" "$BACKUPFOLDERROOT/Config Files/VSCode/"
+[ -d "$VSCODE_USER/snippets" ]         && cp -r "$VSCODE_USER/snippets"      "$BACKUPFOLDERROOT/Config Files/VSCode/"
 
 # VS Code extensions list
 if command -v code >/dev/null 2>&1; then
