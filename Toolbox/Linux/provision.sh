@@ -114,6 +114,16 @@ if [ -n "${NMZIP:-}" ]; then
   sudo systemctl restart NetworkManager || true
 fi
 
+# --- 9. Dev SSL certs --------------------------------------------------------
+log "Restoring dev SSL certs to ~/certs"
+CERTZIP=$(ls -1t "$BACKUP/WWW Backup/"certs-*.zip 2>/dev/null | head -1)
+if [ -n "${CERTZIP:-}" ]; then
+  ( cd "$HOME" && unzip -o "$CERTZIP" >/dev/null )   # zip stores certs/ at top level -> ~/certs
+  echo "  restored from $(basename "$CERTZIP"). Now import ~/certs/myCA.pem into the browser/system trust store."
+else
+  echo "  no certs-*.zip found in Backup Files/WWW Backup yet."
+fi
+
 # --- TODO: still manual / to script later ------------------------------------
 # - Chrome disk-cache flag in ~/.local/share/applications/google-chrome.desktop
 # - LAMP: Apache + PHP + MySQL, a2enmod rewrite, PHP upload limits

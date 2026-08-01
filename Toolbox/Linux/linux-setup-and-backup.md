@@ -185,6 +185,9 @@ Some general tools which is hard to be categorized
   * PHP upload limits adjustments
   * Copy the Dropbox backup of SQLs and www folder to laptop
   * Extract all projects and set them one by one
+  * Restore local dev SSL certs: unzip the latest `Backup Files/WWW Backup/certs-*.zip` into `~/`
+    (creates `~/certs`), then import `~/certs/myCA.pem` into the browser/system trust store. Apache
+    references `/home/metodiew/certs/*.crt` by absolute path. New domains: `~/certs/install-certs.sh <domain>`.
 
 ## OS Install
 * Apache Settings and all the sites-enabled and sites-available items
