@@ -136,6 +136,12 @@ if [ -n "${CERTZIP:-}" ]; then
 else
   echo "  no certs-*.zip found in Backup Files/WWW Backup yet."
 fi
+# DevriX Google service account key -> ~/Software/service-account-keys
+SAKZIP=$(ls -1t "$BACKUP/Config Files/"service-account-keys-*.zip 2>/dev/null | head -1)
+if [ -n "${SAKZIP:-}" ]; then
+  mkdir -p "$HOME/Software"
+  ( cd "$HOME/Software" && unzip -o "$SAKZIP" >/dev/null ) && echo "  service-account-keys restored from $(basename "$SAKZIP")"
+fi
 
 # --- TODO: still manual / to script later ------------------------------------
 # - Chrome disk-cache flag in ~/.local/share/applications/google-chrome.desktop

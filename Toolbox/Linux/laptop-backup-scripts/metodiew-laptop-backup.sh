@@ -190,6 +190,15 @@ else
 	echo "~/certs not found, skipping certs backup."
 fi
 
+# DevriX Google service account key (~/Software/service-account-keys) — credential, kept OUT of git, backed up to Dropbox
+if [ -d "$USER_HOME/Software/service-account-keys" ]; then
+	( cd "$USER_HOME/Software" && zip -r "$BACKUPFOLDERROOT/Config Files/service-account-keys-$NOW.zip" service-account-keys ) >/dev/null
+	sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/service-account-keys-$NOW.zip"
+	echo "Service account keys backed up."
+else
+	echo "service-account-keys not found, skipping."
+fi
+
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-available-$NOW.zip" /etc/apache2/sites-available;
 

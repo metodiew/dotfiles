@@ -19,6 +19,13 @@ We have to start with some of the tools and software we'll be using
     ```
     It replays `Backup Files/Config Files/dropbox-exclude-list.txt` (saved by the weekly backup),
     so the no-sync folders are never downloaded. This replaces the old manual selective-sync screenshot.
+  * **Two-phase sync (for slow connections):** get a usable machine fast, then pull the heavy stuff later:
+    ```
+    bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-restore-tiered.sh phase1   # essentials only
+    # ...set up the machine (provision.sh)...
+    bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-restore-tiered.sh phase2   # pull www + media later
+    ```
+    Easiest phase1 is the Dropbox first-run Selective Sync dialog (uncheck WWW Backup, Pictures, Downloads, Videos, Music, Books).
 
 ### Dotfiles
 Clone the dotfies folder
