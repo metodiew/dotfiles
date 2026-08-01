@@ -174,6 +174,15 @@ else
 	echo "Dropbox CLI not found, skipping exclude list."
 fi
 
+# Local dev SSL certs (~/certs) — used by Apache (absolute paths), root CA lives here, not captured elsewhere
+if [ -d "$USER_HOME/certs" ]; then
+	( cd "$USER_HOME" && zip -r "$BACKUPFOLDERROOT/WWW Backup/certs-$NOW.zip" certs ) >/dev/null
+	sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/WWW Backup/certs-$NOW.zip"
+	echo "Local dev certs backed up."
+else
+	echo "~/certs not found, skipping certs backup."
+fi
+
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-available-$NOW.zip" /etc/apache2/sites-available;
 
