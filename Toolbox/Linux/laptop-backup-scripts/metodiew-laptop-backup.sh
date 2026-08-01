@@ -156,8 +156,10 @@ sleep 1;
 # Archive the hosts file
 cp /etc/hosts "$BACKUPFOLDERROOT/Config Files/Hosts/hosts.$NOW";
 
-# Capture the manually-installed package list (for provision.sh replay on a fresh install)
-apt-mark showmanual > "$BACKUPFOLDERROOT/Config Files/pkglist.txt";
+# Capture installed-package lists (for provision.sh replay on a fresh install)
+apt-mark showmanual > "$BACKUPFOLDERROOT/Config Files/pkglist.txt";                 # manual pkgs (provision.sh reads this)
+dpkg --get-selections > "$BACKUPFOLDERROOT/Config Files/pkglist-full.txt";          # full dpkg selection, reference
+command -v flatpak >/dev/null 2>&1 && flatpak list --app --columns=application > "$BACKUPFOLDERROOT/Config Files/pkglist-flatpak.txt";
 
 # Archive and Backup the Apache Conf directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2-sites-available-$NOW.zip" /etc/apache2/sites-available;
