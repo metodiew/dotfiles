@@ -189,7 +189,8 @@ sudo chown metodiew:metodiew -R "$BACKUPFOLDERROOT/Config Files/"
 # Archive and Backup NetworkManager connections (WiFi/VPN)
 mkdir -p "$BACKUPFOLDERROOT/Config Files/NetworkManager"
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/NetworkManager/system-connections-$NOW.zip" /etc/NetworkManager/system-connections;
-sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/NetworkManager/system-connections-$NOW.zip"
+# chown the whole folder, not just the zip — a root-owned dir here is "unsyncable" to Dropbox
+sudo chown -R metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/NetworkManager"
 
 echo 'Config directories backup is ready.';
 sleep 1;
