@@ -79,6 +79,17 @@ VSCODE_USER="$USER_HOME/.config/Code/User"
 [ -f "$VSCODE_USER/keybindings.json" ] && cp "$VSCODE_USER/keybindings.json" "$BACKUPFOLDERROOT/Config Files/VSCode/"
 [ -d "$VSCODE_USER/snippets" ]         && cp -r "$VSCODE_USER/snippets"      "$BACKUPFOLDERROOT/Config Files/VSCode/"
 
+# Desktop settings + favorites + app configs.
+# dconf holds the WHOLE Cinnamon setup (panel, applets, hotcorners, keybindings), Guake, Nemo prefs.
+if [ -n "$SUDO_USER" ]; then
+	sudo -E -u "$SUDO_USER" HOME="$USER_HOME" dconf dump / > "$BACKUPFOLDERROOT/Config Files/dconf-backup.txt" 2>/dev/null && echo "dconf (desktop settings) saved."
+else
+	dconf dump / > "$BACKUPFOLDERROOT/Config Files/dconf-backup.txt" 2>/dev/null && echo "dconf (desktop settings) saved."
+fi
+[ -f "$USER_HOME/.config/gtk-3.0/bookmarks" ] && cp "$USER_HOME/.config/gtk-3.0/bookmarks" "$BACKUPFOLDERROOT/Config Files/nemo-bookmarks"   # file-manager favorites
+[ -d "$USER_HOME/.config/copyq" ]    && cp -r "$USER_HOME/.config/copyq"    "$BACKUPFOLDERROOT/Config Files/"
+[ -d "$USER_HOME/.config/cinnamon" ] && cp -r "$USER_HOME/.config/cinnamon" "$BACKUPFOLDERROOT/Config Files/"
+
 # VS Code extensions list
 if command -v code >/dev/null 2>&1; then
 	if [ -n "$SUDO_USER" ]; then

@@ -143,6 +143,13 @@ if [ -n "${SAKZIP:-}" ]; then
   ( cd "$HOME/Software" && unzip -o "$SAKZIP" >/dev/null ) && echo "  service-account-keys restored from $(basename "$SAKZIP")"
 fi
 
+# --- 10. Desktop settings + favorites + app configs --------------------------
+log "Restoring desktop settings (dconf), Nemo favorites, CopyQ"
+[ -f "$BACKUP/Config Files/dconf-backup.txt" ] && command -v dconf >/dev/null && dconf load / < "$BACKUP/Config Files/dconf-backup.txt" && echo "  dconf loaded (log out/in for full effect)"
+if [ -f "$BACKUP/Config Files/nemo-bookmarks" ]; then mkdir -p "$HOME/.config/gtk-3.0"; cp "$BACKUP/Config Files/nemo-bookmarks" "$HOME/.config/gtk-3.0/bookmarks"; fi
+[ -d "$BACKUP/Config Files/copyq" ]    && cp -rf "$BACKUP/Config Files/copyq"    "$HOME/.config/"
+[ -d "$BACKUP/Config Files/cinnamon" ] && cp -rf "$BACKUP/Config Files/cinnamon" "$HOME/.config/"
+
 # --- TODO: still manual / to script later ------------------------------------
 # - Chrome disk-cache flag in ~/.local/share/applications/google-chrome.desktop
 # - LAMP: Apache + PHP + MySQL, a2enmod rewrite, PHP upload limits

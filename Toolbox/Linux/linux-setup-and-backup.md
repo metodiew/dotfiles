@@ -183,6 +183,9 @@ Some general tools which is hard to be categorized
 * ~~pCloud~~
 
 ## Misc and General Items
+* Desktop settings restore via `provision.sh`: `dconf load` from `Config Files/dconf-backup.txt`
+  (Cinnamon panel/applets/keybindings + Guake + Nemo), plus `nemo-bookmarks` (file-manager favorites),
+  `copyq`, and `cinnamon` configs. Log out/in afterwards for the full desktop to apply.
 * [Calendar - first day Monday](https://askubuntu.com/questions/197613/monday-as-first-day-in-gnome-shell-instead-of-sunday)
 * Enable Night Light feature
 * [Language select / Keyboard indicator on toolbar does not work](https://askubuntu.com/a/1407683/225076)
