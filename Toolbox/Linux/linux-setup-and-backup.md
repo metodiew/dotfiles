@@ -1,9 +1,47 @@
 # Linux Setup and Backup
 This is a personal step-by-step for installing a new machine or just refreshing my Ubuntu setup. If you feel it useful or have any feedback, please drop a line :)
 
-For some context, I'm using the [laptop-backup-scripts](https://github.com/metodiew/dotfiles/tree/master/Toolbox/Ubuntu/laptop-backup-scripts) set of scripts here where I backup my laptop on a weekly basic and I can easily restore the setup just like it was before.
+For some context, I'm using the [laptop-backup-scripts](https://github.com/metodiew/dotfiles/tree/master/Toolbox/Linux/laptop-backup-scripts) set of scripts here where I backup my laptop on a weekly basis and I can easily restore the setup just like it was before.
 
 Once we have the new system/laptop in place, we are going to follow the steps below.
+
+---
+
+## 🚀 START HERE — restore from a fresh OS (you have NOTHING: no git, no Dropbox, no scripts)
+
+You're reading this on GitHub with a blank machine. The dotfiles repo is **public**, so you can clone it
+over **HTTPS with no SSH key** — that's the unlock that bootstraps everything. Do these in order, by hand:
+
+1. **Install Mint with LUKS.** In the installer tick *"Encrypt the new installation for security"*. Set +
+   write down the LUKS passphrase (no recovery if lost).
+2. **Base tools** (no scripts yet):
+   ```
+   sudo apt update && sudo apt install -y git openssh-server curl zip unzip build-essential
+   ```
+3. **Get the scripts** — clone dotfiles over HTTPS (public repo, no SSH needed):
+   ```
+   mkdir -p ~/Software && git clone https://github.com/metodiew/dotfiles.git ~/Software/dotfiles
+   ```
+   Everything referenced below now lives at `~/Software/dotfiles/Toolbox/Linux/`.
+4. **Install Dropbox** (.deb from dropbox.com), log in. Slow wifi? In the first-run **Selective Sync**
+   dialog UNCHECK `WWW Backup`, `Pictures`, `Downloads`, `Videos`, `Music`, `Books`. Let
+   `Backup Files/Config Files` sync first.
+5. **Restore SSH keys** (needed for private repos): unzip the latest
+   `~/Dropbox/Backup Files/Config Files/ssh folder/*.zip` into `~/.ssh`, then
+   `chmod 700 ~/.ssh && chmod 600 ~/.ssh/*`.
+6. **Re-apply the no-sync folders:**
+   `bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-exclude-restore.sh`
+7. **Run the automated setup** (packages at current versions, dotfiles, symlinks, repos, editors,
+   NetworkManager, certs, service key, desktop settings):
+   `bash ~/Software/dotfiles/Toolbox/Linux/provision.sh`
+8. **LAMP finish** (manual — see the LAMP section below) + pull the big folders:
+   `bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-restore-tiered.sh phase2`
+
+**If a script fails:** every step has a manual command in **`RESTORE-MASTER-REFERENCE.md`** (in this repo,
+and in `~/Dropbox/Backup Files/` once synced). The sections below are the classic checklist — pick
+"run the script" for the fast path, or the manual notes as fallback.
+
+---
 
 ## Install Software, Programs, Tools
 We have to start with some of the tools and software we'll be using
