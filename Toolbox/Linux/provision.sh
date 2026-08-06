@@ -150,6 +150,13 @@ if [ -f "$BACKUP/Config Files/nemo-bookmarks" ]; then mkdir -p "$HOME/.config/gt
 [ -d "$BACKUP/Config Files/copyq" ]    && cp -rf "$BACKUP/Config Files/copyq"    "$HOME/.config/"
 [ -d "$BACKUP/Config Files/cinnamon" ] && cp -rf "$BACKUP/Config Files/cinnamon" "$HOME/.config/"
 
+# Claude Code CLI: config (claude.json) + full state (~/.claude)
+if [ -d "$BACKUP/Config Files/Claude" ]; then
+  [ -f "$BACKUP/Config Files/Claude/claude.json" ] && cp "$BACKUP/Config Files/Claude/claude.json" "$HOME/.claude.json"
+  CLAUDEZIP=$(ls -1t "$BACKUP/Config Files/Claude/"claude-*.zip 2>/dev/null | head -1)
+  [ -n "${CLAUDEZIP:-}" ] && unzip -o "$CLAUDEZIP" -d / >/dev/null 2>&1 && echo "  Claude CLI restored (claude.json + ~/.claude)"
+fi
+
 # --- TODO: still manual / to script later ------------------------------------
 # - Chrome disk-cache flag in ~/.local/share/applications/google-chrome.desktop
 # - LAMP: Apache + PHP + MySQL, a2enmod rewrite, PHP upload limits
