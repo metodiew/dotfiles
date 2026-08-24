@@ -123,15 +123,24 @@ export NVM_DIR="$HOME/.nvm"
 
 # export GOOGLE_APPLICATION_CREDENTIALS="~/gcloud-api.json"
 # export GOOGLE_APPLICATION_CREDENTIALS="/home/metodiew/gcloud-api.json"
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# guard: brew isn't installed on every machine (a fresh reinstall threw
+# "No such file or directory" on every new shell until this check was added)
+[ -x /home/linuxbrew/.linuxbrew/bin/brew ] && eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
-# Set Cursor as a replacement of Visual Studio Code
-alias code='cursor'
+# Editors: `cursor .` -> Cursor, `code .` -> VS Code (both real, no aliasing).
+# The "." case launches detached so the terminal isn't held by the editor.
 function cursor() {
     if [ "$1" = "." ]; then
         command cursor "$(pwd)" > /dev/null 2>&1 & disown
     else
         command cursor "$@"
+    fi
+}
+function code() {
+    if [ "$1" = "." ]; then
+        command code "$(pwd)" > /dev/null 2>&1 & disown
+    else
+        command code "$@"
     fi
 }
 

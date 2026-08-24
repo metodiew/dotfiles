@@ -15,7 +15,9 @@ Recovery model: **no external disk** — everything is in a **git remote (GitHub
 | dotfiles, scripts | GitHub `metodiew/dotfiles` → `~/Software/dotfiles` |
 | `~/me` | GitHub `metodiew/me` → `~/me` |
 | Control Room | GitHub `metodiew/Control-Room` → `~/Software/control-room` |
-| Display profiles | GitHub `metodiew/display-profiles` |
+| Display profiles | GitHub `metodiew/display-profiles` → `~/Software/display-profiles` (run its `install.sh`; newest conf is `Backup Files/display-profile.conf`) |
+| Notification toggle | GitHub `metodiew/ubuntu-notification-shortcut` → `~/Software/ubuntu-notification-shortcut` (path must match the dconf keybinding Ctrl+Shift+J; needs chmod +x) |
+| Office VPN | `Dropbox/WORK/DevriX Office VPN Files/` — certs, guide PDF and `vpn-setup.sh`. Run it after WORK syncs (phase 3). Deliberately NOT in this public repo. A plain `.ovpn` import produces a broken connection; the script applies the auth-type + cipher fixes. |
 | Backup root | `~/Dropbox/Backup Files/` |
 | SSH keys | `Backup Files/Config Files/ssh folder/*.zip` |
 | Dotfiles copies | `Backup Files/Config Files/` (`.bashrc`, `.gitconfig`, `.profile`, `.vimrc`, `.scripts`) |
@@ -51,14 +53,22 @@ Viber (re-links to phone), Claude desktop app `~/.config/Claude` (23G cache, re-
 
 # RESTORE
 
-## Automated (happy path)
+## Automated (happy path) — battle-tested during the 2026-08 LUKS reinstall
 ```
-bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-exclude-restore.sh
-bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-restore-tiered.sh phase1   # slow wifi only
-bash ~/Software/dotfiles/Toolbox/Linux/provision.sh
-# ...LAMP finish (below)...
-bash ~/Software/dotfiles/Toolbox/Linux/laptop-backup-scripts/dropbox-restore-tiered.sh phase2   # pull www/media
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh all
+# or per phase:
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh phase1   # critical: SSH, git, folders, configs, apps
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh phase2   # work: SSL certs, LAMP, project picker
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh phase3   # work folders: Documents/Downloads/WORK sync
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh phase4   # media: Music; Pictures gated; Videos manual
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh status   # phase done-markers + dropbox status
+# web projects any time later (upfront override/skip scan; --force = reset to backup):
+bash ~/Software/dotfiles/Toolbox/Linux/restore.sh www <project>... | www all
 ```
+Phases exist because **Dropbox is 200+GB** — a usable machine never waits on a full sync.
+`restore.sh` wraps: `provision.sh` (configs), `install-apps.sh` (apps + login checklist),
+`lamp-www.sh` (LAMP + vhosts + hosts + per-project restore), `dropbox-restore-tiered.sh`
+(defer-all | undefer www|work|media). Markers: `~/.local/state/laptop-restore/` (rm to redo).
 
 ## MANUAL fallback — do each step by hand if scripts fail
 

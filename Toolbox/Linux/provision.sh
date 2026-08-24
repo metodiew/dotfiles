@@ -50,12 +50,24 @@ if [ -f "$PKGLIST" ]; then
   while read -r p; do
     [ -z "$p" ] && continue
     if dpkg -s "$p" >/dev/null 2>&1; then present=$((present+1)); continue; fi   # already on the fresh system
-    if apt-cache show "$p" >/dev/null 2>&1; then want+=("$p"); else gone+=("$p"); fi   # still in the repos?
+    # installable = has a real CANDIDATE (apt-cache show passes for indexed-but-
+    # uninstallable pkgs, e.g. steam-launcher from an unconfigured third-party repo)
+    cand=$(apt-cache policy "$p" 2>/dev/null | grep -oP 'Candidate:\s*\K\S+' || true)
+    if [ -n "$cand" ] && [ "$cand" != "(none)" ]; then want+=("$p"); else gone+=("$p"); fi
   done < "$PKGLIST"
   echo "already present, skipped: $present"
-  echo "no longer in repos (review manually): ${gone[*]:-none}"
+  echo "no candidate in current repos (review manually): ${gone[*]:-none}"
   echo "installing (${#want[@]} pkgs, current versions): ${want[*]:-none}"
-  [ ${#want[@]} -gt 0 ] && sudo apt install -y "${want[@]}"
+  if [ ${#want[@]} -gt 0 ]; then
+    # bulk first (fast); on failure fall back to one-by-one so a single bad
+    # package can never abort the whole provision run again
+    if ! sudo apt install -y "${want[@]}"; then
+      echo "bulk install failed — retrying one by one"
+      failed=()
+      for p in "${want[@]}"; do sudo apt install -y "$p" || failed+=("$p"); done
+      echo "failed installs (install manually): ${failed[*]:-none}"
+    fi
+  fi
 fi
 
 # --- 2. Dotfiles -------------------------------------------------------------
@@ -82,15 +94,15 @@ log "Personal repos"
 # --- 5. Autostart entries ----------------------------------------------------
 log "Autostart (Guake, etc.)"
 mkdir -p "$HOME/.config/autostart"
-cat > "$HOME/.config/autostart/guake.desktop" <<'EOF'
-[Desktop Entry]
-Type=Application
-Name=Guake Terminal
-Exec=guake
-Icon=guake
-Terminal=false
-X-GNOME-Autostart-enabled=true
-EOF
+# Guake OWNS ~/.config/autostart/guake.desktop: on startup it copies its own
+# template there when start-at-login is true, and os.remove()s the file when it
+# is false (guake/prefs.py). A hand-written entry therefore survives exactly one
+# boot. Set the gsettings key — that is what actually makes Guake autostart.
+if gsettings writable guake.general start-at-login >/dev/null 2>&1; then
+  gsettings set guake.general start-at-login true
+  [ -f /usr/share/guake/autostart-guake.desktop ] && \
+    cp /usr/share/guake/autostart-guake.desktop "$HOME/.config/autostart/guake.desktop"
+fi
 [ -f "$BACKUP/Config Files/guake-preferences" ] && \
   guake --restore-preferences "$BACKUP/Config Files/guake-preferences" || true
 
@@ -129,7 +141,7 @@ fi
 
 # --- 9. Dev SSL certs --------------------------------------------------------
 log "Restoring dev SSL certs to ~/certs"
-CERTZIP=$(ls -1t "$BACKUP/WWW Backup/"certs-*.zip 2>/dev/null | head -1)
+CERTZIP=$(ls -1t "$BACKUP/WWW Backup/"certs-*.zip 2>/dev/null | head -1 || true)
 if [ -n "${CERTZIP:-}" ]; then
   ( cd "$HOME" && unzip -o "$CERTZIP" >/dev/null )   # zip stores certs/ at top level -> ~/certs
   echo "  restored from $(basename "$CERTZIP"). Now import ~/certs/myCA.pem into the browser/system trust store."
@@ -137,7 +149,7 @@ else
   echo "  no certs-*.zip found in Backup Files/WWW Backup yet."
 fi
 # DevriX Google service account key -> ~/Software/service-account-keys
-SAKZIP=$(ls -1t "$BACKUP/Config Files/"service-account-keys-*.zip 2>/dev/null | head -1)
+SAKZIP=$(ls -1t "$BACKUP/Config Files/"service-account-keys-*.zip 2>/dev/null | head -1 || true)
 if [ -n "${SAKZIP:-}" ]; then
   mkdir -p "$HOME/Software"
   ( cd "$HOME/Software" && unzip -o "$SAKZIP" >/dev/null ) && echo "  service-account-keys restored from $(basename "$SAKZIP")"
@@ -153,7 +165,7 @@ if [ -f "$BACKUP/Config Files/nemo-bookmarks" ]; then mkdir -p "$HOME/.config/gt
 # Claude Code CLI: config (claude.json) + full state (~/.claude)
 if [ -d "$BACKUP/Config Files/Claude" ]; then
   [ -f "$BACKUP/Config Files/Claude/claude.json" ] && cp "$BACKUP/Config Files/Claude/claude.json" "$HOME/.claude.json"
-  CLAUDEZIP=$(ls -1t "$BACKUP/Config Files/Claude/"claude-*.zip 2>/dev/null | head -1)
+  CLAUDEZIP=$(ls -1t "$BACKUP/Config Files/Claude/"claude-*.zip 2>/dev/null | head -1 || true)
   [ -n "${CLAUDEZIP:-}" ] && unzip -o "$CLAUDEZIP" -d / >/dev/null 2>&1 && echo "  Claude CLI restored (claude.json + ~/.claude)"
 fi
 
