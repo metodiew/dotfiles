@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+#
+# RescueTime bulk export.
+#
+# Config lives in ~/.config/rescuetime/env (chmod 600), not in this file:
+#   RT_KEY="..."                                  # required
+#   RT_OUT="$HOME/Dropbox/.../rescuetime-export"  # optional, defaults below
+#
+# Usage:
+#   rescuetime-export                         # 2026-01-01 .. today
+#   rescuetime-export 2026-01-01 2026-10-05   # explicit range
+#   FORCE=1 rescuetime-export                 # re-download parts that exist
+#   OUT=/tmp/rt rescuetime-export             # one-off output directory
+#
+# Dimensions pulled:
+#   overview     daily totals per category     monthly chunks
+#   productivity hourly totals per score       monthly chunks
+#   activity     ranked apps and sites         monthly chunks
+#   document     window titles, hourly         WEEKLY chunks
+#
+# Document is weekly because month-long document queries time out server side
+# with HTTP 504. That is a RescueTime limit, not a local one.
+
+set -euo pipefail
+shopt -s nullglob
+
+[[ -r "$HOME/.config/rescuetime/env" ]] && source "$HOME/.config/rescuetime/env"
+: "${RT_KEY:?RT_KEY is not set. Put RT_KEY=<key> in ~/.config/rescuetime/env}"
+
+START="${1:-2026-01-01}"
+END="${2:-$(date +%F)}"
+OUT="${OUT:-${RT_OUT:-$HOME/rescuetime-export}}"
+PARTS="$OUT/parts"
+API="https://www.rescuetime.com/anapi/data"
+FORCE="${FORCE:-0}"
+TIMEOUT=240
+RETRIES=3
+
+mkdir -p "$PARTS"
+
+fetch() {
+  local name="$1" query="$2"
+  local file="$PARTS/$name.csv"
+  local code lines attempt
+
+  if [[ -s "$file" && "$FORCE" != "1" ]]; then
+    printf 'SKIP   %-28s %s rows\n' "$name" "$(( $(wc -l < "$file") - 1 ))"
+    return 0
+  fi
+
+  for (( attempt = 1; attempt <= RETRIES; attempt++ )); do
+    code=$(curl -sS --max-time "$TIMEOUT" -w '%{http_code}' \
+             -H "Authorization: Bearer $RT_KEY" \
+             "$API?$query&format=csv" -o "$file" || echo 000)
+    [[ "$code" == "200" ]] && break
+    (( attempt < RETRIES )) && sleep 5
+  done
+
+  if [[ "$code" != "200" ]]; then
+    printf 'FAIL   %-28s HTTP %s after %s tries\n' "$name" "$code" "$RETRIES" >&2
+    rm -f "$file"
+    return 0
+  fi
+
+  lines=$(wc -l < "$file")
+  if (( lines <= 1 )); then
+    printf 'EMPTY  %-28s\n' "$name"
+    rm -f "$file"
+  else
+    printf 'OK     %-28s %s rows\n' "$name" "$(( lines - 1 ))"
+  fi
+  sleep 1
+}
+
+merge() {
+  local pattern="$1" out="$2" first=1 f
+  for f in "$PARTS"/$pattern; do
+    if (( first )); then cat "$f" > "$out"; first=0; else tail -q -n +2 "$f" >> "$out"; fi
+  done
+  if (( first )); then
+    printf 'SKIP   %s (no parts)\n' "$(basename "$out")"
+  else
+    printf 'MERGED %-28s %s rows, %s\n' "$(basename "$out")" \
+           "$(( $(wc -l < "$out") - 1 ))" "$(du -h "$out" | cut -f1)"
+  fi
+}
+
+printf 'Range:  %s .. %s\nOutput: %s\n\n' "$START" "$END" "$OUT"
+
+# --- monthly: overview, productivity, activity ---
+cur="$START"
+while [[ "$cur" < "$END" || "$cur" == "$END" ]]; do
+  mstart=$(date -d "$cur" +%Y-%m-01); [[ "$mstart" < "$START" ]] && mstart="$START"
+  mend=$(date -d "$(date -d "$cur" +%Y-%m-01) +1 month -1 day" +%F)
+  [[ "$mend" > "$END" ]] && mend="$END"
+  tag=$(date -d "$cur" +%Y-%m)
+  base="restrict_begin=$mstart&restrict_end=$mend"
+
+  fetch "overview-$tag"  "perspective=interval&restrict_kind=overview&interval=day&$base"
+  fetch "prod-hour-$tag" "perspective=interval&restrict_kind=productivity&interval=hour&$base"
+  fetch "activity-$tag"  "perspective=rank&restrict_kind=activity&$base"
+
+  cur=$(date -d "$(date -d "$cur" +%Y-%m-01) +1 month" +%F)
+done
+
+# --- weekly: document ---
+echo
+echo "Document detail, weekly:"
+cur="$START"
+while [[ "$cur" < "$END" || "$cur" == "$END" ]]; do
+  wend=$(date -d "$cur +6 days" +%F); [[ "$wend" > "$END" ]] && wend="$END"
+  fetch "doc-$cur" "perspective=interval&restrict_kind=document&interval=hour&restrict_begin=$cur&restrict_end=$wend"
+  cur=$(date -d "$cur +7 days" +%F)
+done
+
+echo
+merge 'overview-*.csv'  "$OUT/rt-overview-daily.csv"
+merge 'prod-hour-*.csv' "$OUT/rt-productivity-hourly.csv"
+merge 'activity-*.csv'  "$OUT/rt-activities.csv"
+merge 'doc-*.csv'       "$OUT/rt-documents.csv"
+
+# filtered copy: rows under 60s per hour are switching noise and bloat the file
+if [[ -s "$OUT/rt-documents.csv" ]]; then
+  awk -F, 'NR==1 || $2>=60' "$OUT/rt-documents.csv" > "$OUT/rt-documents-60s.csv"
+  printf 'FILTER %-28s %s rows, %s\n' "rt-documents-60s.csv" \
+         "$(( $(wc -l < "$OUT/rt-documents-60s.csv") - 1 ))" \
+         "$(du -h "$OUT/rt-documents-60s.csv" | cut -f1)"
+fi
+
+echo
+echo "Done:"
+ls -1sh "$OUT"/*.csv 2>/dev/null || echo "  nothing produced, check FAIL lines above"
