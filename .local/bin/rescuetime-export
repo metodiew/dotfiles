@@ -11,6 +11,9 @@
 #   rescuetime-export 2026-01-01 2026-10-05   # explicit range
 #   FORCE=1 rescuetime-export                 # re-download parts that exist
 #   OUT=/tmp/rt rescuetime-export             # one-off output directory
+#   RT_KEY=... rescuetime-export              # one-off key
+#
+# OUT and RT_KEY from the command line always win over the config file.
 #
 # Dimensions pulled:
 #   overview     daily totals per category     monthly chunks
@@ -24,12 +27,18 @@
 set -euo pipefail
 shopt -s nullglob
 
+# Sourcing the config overwrites anything with the same name, so keep what the
+# caller passed and put it back afterwards. The config only sets RT_OUT; a
+# stray OUT= line in it is ignored.
+cli_out="${OUT-}"
+cli_key="${RT_KEY-}"
 [[ -r "$HOME/.config/rescuetime/env" ]] && source "$HOME/.config/rescuetime/env"
+[[ -n "$cli_key" ]] && RT_KEY="$cli_key"
 : "${RT_KEY:?RT_KEY is not set. Put RT_KEY=<key> in ~/.config/rescuetime/env}"
 
 START="${1:-2026-01-01}"
 END="${2:-$(date +%F)}"
-OUT="${OUT:-${RT_OUT:-$HOME/rescuetime-export}}"
+OUT="${cli_out:-${RT_OUT:-$HOME/rescuetime-export}}"
 PARTS="$OUT/parts"
 API="https://www.rescuetime.com/anapi/data"
 FORCE="${FORCE:-0}"
