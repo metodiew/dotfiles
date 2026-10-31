@@ -72,7 +72,6 @@ alias fixsound="systemctl --user restart pulseaudio"
 alias fixchromeclick='echo "⚠️ Logging out — save your work!" && sleep 5 && sudo systemctl restart display-manager'
 
 
-alias sshoneskystaging='ssh -i "Devrix1.pem" ec2-user@ec2-3-37-191-18.ap-northeast-2.compute.amazonaws.com'
 
 ## Grunt Install/Setup Command
 alias dxgruntinstall="npm install grunt-contrib-sass grunt-contrib-watch grunt-contrib-jshint grunt-autoprefixer"
