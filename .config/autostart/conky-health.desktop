@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=Conky Health Monitor
+Comment=Desktop strip showing CPU load, top processes, memory and swap
+Exec=conky -c /home/metodiew/.config/conky/health.conf
+Icon=utilities-system-monitor
+Terminal=false
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=8

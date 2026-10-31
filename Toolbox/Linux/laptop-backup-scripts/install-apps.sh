@@ -4,6 +4,7 @@
 # Best-effort by design: a single failed download must not abort the rest (no set -e).
 set -uo pipefail
 BACKUP="$HOME/Dropbox/Backup Files"
+DOTFILES="$HOME/Software/dotfiles"
 TMP=$(mktemp -d); trap 'rm -rf "$TMP"' EXIT
 log()  { printf '\n\033[1;32m==> %s\033[0m\n' "$*"; }
 have() { command -v "$1" >/dev/null 2>&1; }
@@ -14,7 +15,7 @@ deb()  { # $1=url $2=name
 
 log "apt apps"
 sudo apt update
-sudo apt install -y copyq flameshot guake flatpak
+sudo apt install -y copyq flameshot guake flatpak conky-all
 
 log ".deb apps"
 have google-chrome || deb "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb" chrome
@@ -125,6 +126,55 @@ for pair in "copyq:com.github.hluk.copyq" "spotify:spotify"; do
     echo "  autostart added: $short"
   fi
 done
+
+# Dropbox tray icon on Cinnamon. Dropbox string-matches $XDG_CURRENT_DESKTOP against
+# Unity/KDE/GNOME/XFCE/MATE and silently declines to draw an indicator on anything else.
+# Cinnamon reports "X-Cinnamon", so the icon never appears — even though Cinnamon runs a
+# StatusNotifier host (org.x/org.kde.StatusNotifierWatcher) and has libayatana-appindicator3
+# installed, i.e. it can render the indicator perfectly well. Claiming Unity for Dropbox's
+# process only is enough. Verified working 2026-08-31. If Nemo integration ever misbehaves,
+# this prefix is the first thing to drop.
+log "Dropbox tray icon fix (Cinnamon reports X-Cinnamon, which Dropbox won't draw on)"
+DBAUTO="$HOME/.config/autostart/dropbox.desktop"
+if [ -f "$DBAUTO" ]; then
+  if grep -q '^Exec=env XDG_CURRENT_DESKTOP=' "$DBAUTO"; then
+    echo "  already patched"
+  else
+    sed -i 's|^Exec=\(dropbox .*\)$|Exec=env XDG_CURRENT_DESKTOP=Unity \1|' "$DBAUTO" \
+      && echo "  Exec patched -> env XDG_CURRENT_DESKTOP=Unity"
+  fi
+else
+  mkdir -p "$HOME/.config/autostart"
+  cat > "$DBAUTO" <<'EOF'
+[Desktop Entry]
+Name=Dropbox
+GenericName=File Synchronizer
+Comment=Sync your files across computers and to the web
+Exec=env XDG_CURRENT_DESKTOP=Unity dropbox start -i
+Terminal=false
+Type=Application
+Icon=dropbox
+Categories=Network;FileTransfer;
+Keywords=file;synchronization;sharing;collaboration;cloud;storage;backup;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true
+EOF
+  echo "  created (Dropbox had not written one yet)"
+fi
+
+# Conky desktop health strip: CPU load + top processes, memory + top RAM hogs, pinned to
+# head 0 bottom-right. The config is SYMLINKED rather than copied so tuning the widget
+# updates the repo directly — the copy pattern used for .bashrc et al. is what let
+# ~/.gitconfig silently drift away from its tracked version.
+log "Conky health widget (config + autostart)"
+if [ -f "$DOTFILES/.config/conky/health.conf" ]; then
+  mkdir -p "$HOME/.config/conky" "$HOME/.config/autostart"
+  ln -sfn "$DOTFILES/.config/conky/health.conf" "$HOME/.config/conky/health.conf"
+  cp "$DOTFILES/.config/autostart/conky-health.desktop" "$HOME/.config/autostart/"
+  echo "  conky config symlinked + autostart added"
+else
+  echo "  SKIPPED: $DOTFILES/.config/conky/health.conf not found"
+fi
 
 log "Panel pin remap (apt->flatpak app IDs changed)"
 PINJSON="$HOME/.config/cinnamon/spices/grouped-window-list@cinnamon.org/2.json"
