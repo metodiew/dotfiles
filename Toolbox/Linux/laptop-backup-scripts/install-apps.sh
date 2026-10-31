@@ -68,6 +68,17 @@ log "Flameshot config + save dir"
 mkdir -p "$HOME/.config/flameshot" "$HOME/Dropbox/Flameshot"
 [ -f "$BACKUP/Config Files/flameshot.ini" ] && cp "$BACKUP/Config Files/flameshot.ini" "$HOME/.config/flameshot/"
 
+log "Local key files (mode 600)"
+SECRETS="$BACKUP/Config Files/Secrets"
+mkdir -p "$HOME/.config/rescuetime"
+[ -f "$SECRETS/env" ] && install -m 600 "$SECRETS/env" "$HOME/.config/env"
+[ -f "$SECRETS/rescuetime/env" ] && install -m 600 "$SECRETS/rescuetime/env" "$HOME/.config/rescuetime/env"
+
+log "autorandr display profiles (latest backup)"
+AUTORANDR_ZIP=$(ls -1 "$BACKUP/Config Files/Config Folder/"autorandr-*.zip 2>/dev/null | sort | tail -n 1)
+# The zip stores home/<user>/.config/autorandr/..., so unpack it at /
+[ -n "$AUTORANDR_ZIP" ] && [ ! -d "$HOME/.config/autorandr" ] && unzip -q "$AUTORANDR_ZIP" -d / && echo "  restored from $(basename "$AUTORANDR_ZIP")"
+
 # Chrome disk-cache-in-RAM flag: DELIBERATELY NOT APPLIED.
 # It was a workaround for eCryptfs I/O stalls (cache on disk froze the machine).
 # LUKS removed that problem — I/O pressure sits at ~0.1% — so the flag became pure

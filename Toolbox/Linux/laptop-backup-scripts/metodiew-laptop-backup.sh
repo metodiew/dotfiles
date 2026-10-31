@@ -68,6 +68,10 @@ if [ -f $USER_HOME/.config/flameshot/flameshot.ini ]; then
 else
 	echo "Flameshot config not found, skipping.";
 fi
+# Local key files (mode 600). Infisical is the source of truth for the server; this is the laptop copy.
+mkdir -p "$BACKUPFOLDERROOT/Config Files/Secrets/rescuetime"
+[ -f "$USER_HOME/.config/env" ] && cp -p "$USER_HOME/.config/env" "$BACKUPFOLDERROOT/Config Files/Secrets/env"
+[ -f "$USER_HOME/.config/rescuetime/env" ] && cp -p "$USER_HOME/.config/rescuetime/env" "$BACKUPFOLDERROOT/Config Files/Secrets/rescuetime/env"
 cp -r $USER_HOME/.scripts "$BACKUPFOLDERROOT/Config Files/";
 cp -r $USER_HOME/.vim "$BACKUPFOLDERROOT/Config Files/";
 
@@ -181,11 +185,12 @@ command -v flatpak >/dev/null 2>&1 && flatpak list --app --columns=application >
 
 # Dropbox Selective Sync exclusions (the "no-sync" folders). Clean absolute paths, one per line.
 # Restored after a reinstall by dropbox-exclude-restore.sh. Replaces the manual selective-sync screenshot.
+# The CLI prints paths relative to the current directory (../Dropbox/...), so rebuild them from $USER_HOME.
 if command -v dropbox >/dev/null 2>&1; then
 	if [ -n "$SUDO_USER" ]; then
-		sudo -E -u "$SUDO_USER" HOME="$USER_HOME" dropbox exclude list 2>/dev/null | grep -oE '/home/.*/Dropbox/.*' > "$BACKUPFOLDERROOT/Config Files/dropbox-exclude-list.txt"
+		sudo -E -u "$SUDO_USER" HOME="$USER_HOME" dropbox exclude list 2>/dev/null | grep -oE 'Dropbox/.*' | sed "s|^|$USER_HOME/|" > "$BACKUPFOLDERROOT/Config Files/dropbox-exclude-list.txt"
 	else
-		dropbox exclude list 2>/dev/null | grep -oE '/home/.*/Dropbox/.*' > "$BACKUPFOLDERROOT/Config Files/dropbox-exclude-list.txt"
+		dropbox exclude list 2>/dev/null | grep -oE 'Dropbox/.*' | sed "s|^|$USER_HOME/|" > "$BACKUPFOLDERROOT/Config Files/dropbox-exclude-list.txt"
 	fi
 	echo "Dropbox exclude list saved."
 else
@@ -218,6 +223,13 @@ sudo chown metodiew:metodiew "$BACKUPFOLDERROOT/Config Files/Apache Conf/apache2
 
 # Archive and Backup Config directory
 sudo zip -r "$BACKUPFOLDERROOT/Config Files/Config Folder/autostart-$NOW.zip" $USER_HOME/.config/autostart;
+
+# autorandr display profiles, including the Office Meeting Pro audio hook in postswitch
+if [ -d "$USER_HOME/.config/autorandr" ]; then
+	sudo zip -r "$BACKUPFOLDERROOT/Config Files/Config Folder/autorandr-$NOW.zip" $USER_HOME/.config/autorandr;
+else
+	echo "autorandr config not found, skipping.";
+fi
 
 # Fix the permissions
 sudo chown metodiew:metodiew -R "$BACKUPFOLDERROOT/Config Files/"
