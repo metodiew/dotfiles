@@ -286,6 +286,9 @@ fi
 echo 'Personal repos backup ready.';
 sleep 1;
 
+# Control Room: copy the server's nightly backup from the shared Dropbox folder (local only, no SSH)
+bash "$USER_HOME/Dropbox/control-room/scripts/laptop/backup-now.sh" || echo 'Control Room backup skipped: still syncing or missing.'
+
 # Run the combined Apache projects + MySQL backup script
 bash "$SCRIPT_DIR/www-apache-projects-and-mysql-backup.sh";
 
