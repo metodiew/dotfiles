@@ -288,6 +288,8 @@ sleep 1;
 
 # Control Room: copy the server's nightly backup from the shared Dropbox folder (local only, no SSH)
 bash "$USER_HOME/Dropbox/control-room/scripts/laptop/backup-now.sh" || echo 'Control Room backup skipped: still syncing or missing.'
+# Control Room: hand the newest Samsung Health export to the server (once per export)
+bash "$SCRIPT_DIR/cr-shealth-handover.sh"
 
 # Run the combined Apache projects + MySQL backup script
 bash "$SCRIPT_DIR/www-apache-projects-and-mysql-backup.sh";
