@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Claude WM_CLASS rename for RescueTime
+Exec=/home/metodiew/.local/bin/claude-wmclass
+X-GNOME-Autostart-enabled=true
+X-GNOME-Autostart-Delay=20

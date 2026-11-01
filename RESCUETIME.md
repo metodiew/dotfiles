@@ -73,3 +73,16 @@ Clockify entry by entry.
 Android data goes silent when One UI puts the app into deep sleep. Exclude
 RescueTime from battery optimisation and check the mobile totals occasionally;
 a run of zero-hour days is the symptom.
+
+## Claude desktop shows up as "Claude for Android"
+
+The Linux Claude desktop app reports WM_CLASS `com.anthropic.claude`, the same
+string as the Android package, so RescueTime merges desktop and phone time into
+"Claude for Android". `.local/bin/claude-wmclass` renames the class of every
+matching window to `claude-desktop`, and `.config/autostart/claude-wmclass.desktop`
+runs it 20 seconds after login. It waits up to 3 minutes for Claude to open.
+
+After restarting Claude without logging out, run `claude-wmclass` by hand.
+Check with `xprop -id $(xdotool search --name '^Claude$' | head -1) WM_CLASS`,
+which should show `"claude-desktop", "com.anthropic.Claude"`. In RescueTime,
+"claude-desktop" is categorised as Software Dev : General, Focus Work.

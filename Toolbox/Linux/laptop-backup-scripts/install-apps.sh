@@ -176,6 +176,13 @@ else
   echo "  SKIPPED: $DOTFILES/.config/conky/health.conf not found"
 fi
 
+# Claude desktop reports WM_CLASS "com.anthropic.claude", the Android package name, so
+# RescueTime files desktop time as "Claude for Android". Rename it at login. See RESCUETIME.md.
+log "Claude desktop WM_CLASS rename for RescueTime (script + autostart)"
+mkdir -p "$HOME/.local/bin" "$HOME/.config/autostart"
+ln -sfn "$DOTFILES/.local/bin/claude-wmclass" "$HOME/.local/bin/claude-wmclass"
+cp "$DOTFILES/.config/autostart/claude-wmclass.desktop" "$HOME/.config/autostart/"
+
 log "Panel pin remap (apt->flatpak app IDs changed)"
 PINJSON="$HOME/.config/cinnamon/spices/grouped-window-list@cinnamon.org/2.json"
 if [ -f "$PINJSON" ] && flatpak info com.slack.Slack >/dev/null 2>&1; then
