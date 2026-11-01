@@ -1,2 +1,3 @@
 #!/usr/bin/env bash
-for i in $(seq 90); do ws=$(xdotool search --classname com.anthropic.claude); if [ -n "$ws" ]; then sleep 5; for w in $(xdotool search --classname com.anthropic.claude); do xdotool set_window --classname claude-desktop "$w"; done; exit; fi; sleep 2; done
+# RescueTime reads WM_CLASS, and Claude desktop reports the Android package name in both fields.
+for i in $(seq 90); do ws=$(xdotool search --classname com.anthropic.claude); if [ -n "$ws" ]; then sleep 5; for w in $(xdotool search --classname com.anthropic.claude); do xdotool set_window --classname claude-desktop --class claude-desktop "$w"; done; exit; fi; sleep 2; done

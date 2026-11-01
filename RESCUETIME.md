@@ -78,11 +78,11 @@ a run of zero-hour days is the symptom.
 
 The Linux Claude desktop app reports WM_CLASS `com.anthropic.claude`, the same
 string as the Android package, so RescueTime merges desktop and phone time into
-"Claude for Android". `.local/bin/claude-wmclass` renames the class of every
+"Claude for Android". `.local/bin/claude-wmclass` renames both WM_CLASS fields of every
 matching window to `claude-desktop`, and `.config/autostart/claude-wmclass.desktop`
 runs it 20 seconds after login. It waits up to 3 minutes for Claude to open.
 
 After restarting Claude without logging out, run `claude-wmclass` by hand.
 Check with `xprop -id $(xdotool search --name '^Claude$' | head -1) WM_CLASS`,
-which should show `"claude-desktop", "com.anthropic.Claude"`. In RescueTime,
+which should show `"claude-desktop", "claude-desktop"`. In RescueTime,
 "claude-desktop" is categorised as Software Dev : General, Focus Work.
